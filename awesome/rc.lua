@@ -19,7 +19,7 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local xrandr = require("xrandr")
 local foggy = require("foggy")
-
+local hostname = io.popen("uname -n"):read()
 
 local config_path = "/home/lmayall/Documents/dotfiles/awesome"
 
@@ -101,6 +101,13 @@ do
     config.widget.volume = volume_control({})
     config.widget.cpu = require("awesome-wm-widgets.cpu-widget.cpu-widget")
     config.widget.ram = require("awesome-wm-widgets.ram-widget.ram-widget")
+
+    if hostname == "lmayallThinkPad" then
+        config.widget.battery = require("awesome-wm-widgets.battery-widget.battery")
+    else
+        config.widget.battery = nil
+    end
+
 
     config.widget.cpu.color = "linear:0,0:0,22:0,#FF0000:0.3,#FFFF00:0.5," .. beautiful.fg_normal
 
@@ -254,6 +261,7 @@ do
                 config.widget.cpu,
                 config.widget.ram,
                 config.widget.volume,
+                config.widget.battery,
                 wibox.widget.systray(),
                 config.widget.clock
             },
@@ -292,6 +300,17 @@ do
     config.keybinds.global.volumeUp = {"XF86AudioRaiseVolume", function() config.widget.volume:up() end}
     config.keybinds.global.volumeDown = {"XF86AudioLowerVolume", function() config.widget.volume:down() end}
 
+    -- laptop keybinds
+    config.keybinds.laptop.mod = {}
+    config.keybinds.laptop.volumeMute = {"XF86AudioMute", function() config.widget.volume:toggle() end}
+    config.keybinds.laptop.fullscreen = {"XF86LaunchA", config.func.fullscreen}
+
+    config.keybinds.laptop.mod.songkeyNext = {"]", function() awful.spawn.with_shell("playerctl next") end}
+    config.keybinds.laptop.mod.songkeyPrev = {"[", function() awful.spawn.with_shell("playerctl previous") end}
+    config.keybinds.laptop.mod.songkeyPause = {"p", function() awful.spawn.with_shell("playerctl play-pause") end}
+
+
+
     config.keybinds.global.songNext = {"XF86AudioNext", function() awful.spawn.with_shell("playerctl next") end}
     config.keybinds.global.songPrev = {"XF86AudioPrev", function() awful.spawn.with_shell("playerctl previous") end}
     config.keybinds.global.songPause = {"XF86AudioPlay", function() awful.spawn.with_shell("playerctl play-pause") end}
@@ -325,6 +344,15 @@ awful.layout.layouts = {
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+
+-- Laptop specific binds
+    awful.key({}, config.keybinds.laptop.volumeMute[1], config.keybinds.laptop.volumeMute[2]),
+    awful.key({modkey}, config.keybinds.laptop.mod.songkeyNext[1], config.keybinds.laptop.mod.songkeyNext[2]),
+    awful.key({modkey}, config.keybinds.laptop.mod.songkeyPrev[1], config.keybinds.laptop.mod.songkeyPrev[2]),
+    awful.key({modkey}, config.keybinds.laptop.mod.songkeyPause[1], config.keybinds.laptop.mod.songkeyPause[2]),
+
+
+
     awful.key({modkey}, config.keybinds.global.mod.terminal[1], config.keybinds.global.mod.terminal[2]),
     awful.key({modkey}, config.keybinds.global.mod.launcher[1], config.keybinds.global.mod.launcher[2]),
 
@@ -359,6 +387,8 @@ globalkeys = gears.table.join(
 clientkeys = gears.table.join(
     awful.key({modkey}, config.keybinds.client.mod.kill, function(c) c:kill() end),
     awful.key({}, config.keybinds.client.fullscreen[1], config.keybinds.client.fullscreen[2]),
+
+    awful.key({}, config.keybinds.laptop.fullscreen[1], config.keybinds.laptop.fullscreen[2]),
     
     awful.key({modkey}, config.keybinds.client.mod.minClient[1], config.keybinds.client.mod.minClient[2])
 
@@ -478,12 +508,12 @@ awful.rules.rules = {
       "ConfigManager",  -- Thunderbird's about:config.
       "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
     }
-  }, properties = { floating = true }},
+  }, properties = { floating = true },
 
-  rule = {
-      class = "code-oss"
+  rule_any = {
+      class = {"code-oss", "Firefox"},
   },
-  properties = {floating = false},
+  properties = {floating = false}},
 
 
 -- Add titlebars to normal clients and dialogs
