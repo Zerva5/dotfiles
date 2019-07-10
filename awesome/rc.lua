@@ -21,7 +21,7 @@ local xrandr = require("xrandr")
 local foggy = require("foggy")
 local hostname = io.popen("uname -n"):read()
 
-local config_path = "/home/lmayall/Documents/dotfiles/awesome"
+local config_path = "/home/lmayall/dotfiles/awesome"
 
 
 if awesome.startup_errors then
@@ -96,7 +96,7 @@ do
 
 
     -- Widgets
-    config.widget.clock = wibox.widget.textclock()
+    config.widget.clock = wibox.widget.textclock("%a %b %d, %H:%M")
     config.widget.systray = wibox.widget.systray()
     config.widget.volume = volume_control({})
     config.widget.cpu = require("awesome-wm-widgets.cpu-widget.cpu-widget")
@@ -107,11 +107,6 @@ do
     else
         config.widget.battery = nil
     end
-
-
-    config.widget.cpu.color = "linear:0,0:0,22:0,#FF0000:0.3,#FFFF00:0.5," .. beautiful.fg_normal
-
-
 
     -- Functions
     config.func.set_wallpaper = function (s)
@@ -257,13 +252,18 @@ do
 
             },
             { -- Right widgets
-                layout = wibox.layout.fixed.horizontal,
-                config.widget.cpu,
-                config.widget.ram,
-                config.widget.volume,
-                config.widget.battery,
-                wibox.widget.systray(),
-                config.widget.clock
+	    	{
+		    {
+                        layout = wibox.layout.fixed.horizontal,
+                        config.widget.volume,
+                        wibox.widget.systray(),
+                        config.widget.clock
+	    	    },
+		    widget = wibox.container.margin,
+		    margins = 2,
+		    color = beautiful.fg_normal
+		},
+		layout = wibox.layout.fixed.horizontal,
             },
         }
 
@@ -371,6 +371,27 @@ globalkeys = gears.table.join(
     awful.key({modkey}, config.keybinds.global.mod.prevClient[1], config.keybinds.global.mod.prevClient[2]),
 
     awful.key({ modkey, "Control" }, "r", awesome.restart),
+
+    awful.key({ modkey, "Shift" }, "n", function ()
+                        if client.focus then
+			    local tagIndex = (client.focus.first_tag.index - 2) % 10 + 1
+                            local tag = client.focus.screen.tags[tagIndex]
+                            if tag then
+                                client.focus:move_to_tag(tag)
+				awful.tag.viewprev()
+                            end
+                        end
+                    end),
+    awful.key({ modkey, "Shift" }, "m", function ()
+                        if client.focus then
+			    local tagIndex = (client.focus.first_tag.index) % 10 + 1
+                            local tag = client.focus.screen.tags[tagIndex]
+                            if tag then
+                                client.focus:move_to_tag(tag)
+				awful.tag.viewnext()
+                            end
+                        end
+                    end),
 
     awful.key({modkey}, config.keybinds.client.mod.maxClient[1], function ()
         local c = awful.client.restore()
