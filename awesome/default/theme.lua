@@ -7,11 +7,11 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
 local gfs = require("gears.filesystem")
-local themes_path = "/home/lmayall/Documents/dotfiles/awesome/"
+local themes_path = "/home/lmayall/dotfiles/awesome/"
 
 local theme = {}
 
-theme.font          = "Iosevka semibold 10"
+theme.font          = "Source Code Pro Semibold 10"
 
 theme.bg_normal     = "#22222200"
 theme.bg_focus      = "#535d6c00"
@@ -24,10 +24,10 @@ theme.fg_focus      = "#88aa77"
 theme.fg_urgent     = "#ff0000"
 theme.fg_minimize   = "#ffffff"
 
-theme.useless_gap   = dpi(4)
-theme.border_width  = dpi(4)
-theme.border_normal = "#002222"
-theme.border_focus  = "#225544"
+theme.useless_gap   = dpi(10)
+theme.border_width  = dpi(5)
+theme.border_normal = "#00222200"
+theme.border_focus  = "#225544FF"
 theme.border_marked = "#91231c"
 
 
