@@ -1,15 +1,26 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
+local gears = require("gears")
+
+local menu = require("menu")
+
+--widgets
+local volume_control = require("volume-control")
+
+local widgets = {}
+
+widgets.volume = volume_control({})
+widgets.sysclock = wibox.widget.textclock("%H:%M")
 
 
-local menu = {}
-menu.taglist = {}
 
-menu.taglist.spacing = beautiful.taglist_spacing
-menu.taglist.margin = beautiful.taglist_margin
+widgets.taglist = {}
 
-menu.taglist.widget_template = {
+widgets.taglist.spacing = beautiful.taglist_spacing
+widgets.taglist.margin = beautiful.taglist_margin
+
+widgets.taglist.widget_template = {
     {
         {
             {
@@ -47,7 +58,7 @@ menu.taglist.widget_template = {
     	self.fg = beautiful.taglist_fg_empty
         else
             self.bg = beautiful.taglist_bg_normal
-    		self.fg = beautiful.taglist_fg_normal
+    	self.fg = beautiful.taglist_fg_normal
         end
 
         if t == awful.screen.focused().selected_tag then
@@ -58,11 +69,10 @@ menu.taglist.widget_template = {
     end
 }
 
-menu.tasklist = {}
+widgets.tasklist = {}
 
-menu.tasklist.spacing = beautiful.tasklist_spacing
-
-menu.tasklist.widget_template = {
+widgets.tasklist.spacing = beautiful.tasklist_spacing
+widgets.tasklist.widget_template = {
 {
     {
         {
@@ -104,11 +114,45 @@ menu.tasklist.widget_template = {
 	    self.bg = beautiful.tasklist_bg_normal
         end
     end,
-
-
 }
 
-menu.widgets = {}
+widgets.createTaglist = function(s)
+	newtaglist = awful.widget.taglist {
+            screen  = s,
+            filter  = awful.widget.taglist.filter.all,
+            buttons = taglist_buttons,
 
+            style = {
+                shape = gears.shape.rectangle,
+            },
 
-return menu
+            layout = {
+                spacing = menu.taglist.spacing,
+                layout = wibox.layout.fixed.horizontal
+            },
+            widget_template = widgets.taglist.widget_template,
+    	}
+	return newtaglist
+end
+
+widgets.createTasklist = function(s)
+	newtasklist = awful.widget.tasklist {
+            screen   = s,
+            filter   = awful.widget.tasklist.filter.currenttags,
+            buttons  = tasklist_buttons,
+
+            style = {
+                shape_border_width = beautiful.tasklist_bordersize,
+                shape  = gears.shape.rectangle,
+            },
+
+            layout = {
+                spacing = menu.tasklist.spacing,
+                layout = wibox.layout.fixed.horizontal
+            },
+            widget_template = menu.tasklist.widget_template
+        }
+	return newtasklist
+end
+
+return widgets

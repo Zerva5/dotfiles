@@ -54,20 +54,34 @@ end
 
 do
 -- Create a wibox for each screen and add it
-    taglist_buttons = keybinds.mouse.taglist
+    taglist_buttons = gears.table.join(
+                awful.button({ }, 1, function(t) t:view_only() end)
+    ) 
 
-    tasklist_buttons = keybinds.mouse.tasklist
-                 
+    tasklist_buttons = gears.table.join(
+                 awful.button({ }, 1, function (c)
+                                          if c == client.focus then
+                                              c.minimized = true
+                                          else
+                                              c:emit_signal(
+                                                  "request::activate",
+                                                  "tasklist",
+                                                  {raise = true}
+                                              )
+                                          end
+                                      end))
+
+
     awful.screen.connect_for_each_screen(function (s)
 
         functions.set_wallpaper(s)
         
-        awful.tag(config.taglist, s, config.layouts[1])
+        awful.tag({ "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"}, s, config.layouts[1])
 
         -- Create a taglist widget
-        s.mytaglist = widgets.taglist.create(s)
+        s.mytaglist = widgets.createTaglist(s)
 
-        s.mytasklist = widgets.tasklist.create(s)
+        s.mytasklist = widgets.createTasklist(s)
 
         -- Create the wibox
         s.mywibox = awful.wibar({ position = beautiful.bar_position, screen = s })
@@ -99,6 +113,7 @@ do
 		    {
                         layout = wibox.layout.fixed.horizontal,
 			spacing = beautiful.rightmenu_spacing,
+			widgets.volume,
                         wibox.widget.systray(),
                         widgets.sysclock,
 	    	    },
@@ -199,7 +214,6 @@ awful.rules.rules = {
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
-	c.shape = gears.shape.rect
 -- Set the windows at the slave,
 -- i.e. put it at the end of others instead of setting it master.
 -- if not awesome.startup then awful.client.setslave(c) end
@@ -223,5 +237,6 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
-awful.spawn.with_shell("sh " .. config.scripts .. config.device .. "/WMStart.sh")
+awful.spawn.with_shell("compton &")
+awful.spawn.with_shell("nm-applet &")
 -- }}}

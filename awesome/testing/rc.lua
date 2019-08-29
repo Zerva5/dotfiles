@@ -1,5 +1,4 @@
 local awful = require("awful")
-local volume_control = require("volume-control")
 local math = require("math")
 local gears = require("gears")
 awful.client = require("awful.client")
@@ -20,13 +19,11 @@ do
     beautiful.init(config.theme.path .. config.theme.name .. "/theme.lua")
 end
 
-local hostname = io.popen("uname -n"):read()
-
-
-local widgets = require("widgets")
-local functions = require("functions")
 local keybinds = require("keybinds")
-local menu = require("menu")
+
+local tag = require("tag")
+
+local hostname = io.popen("uname -n"):read()
 
 local config_path = "/home/lmayall/dotfiles/awesome"
 
@@ -53,73 +50,21 @@ do
 end
 
 do
--- Create a wibox for each screen and add it
-    taglist_buttons = keybinds.mouse.taglist
-
-    tasklist_buttons = keybinds.mouse.tasklist
-                 
     awful.screen.connect_for_each_screen(function (s)
 
-        functions.set_wallpaper(s)
+	    tag.Initialize(s)
+	    
+
         
-        awful.tag(config.taglist, s, config.layouts[1])
-
-        -- Create a taglist widget
-        s.mytaglist = widgets.taglist.create(s)
-
-        s.mytasklist = widgets.tasklist.create(s)
-
-        -- Create the wibox
-        s.mywibox = awful.wibar({ position = beautiful.bar_position, screen = s })
-
-        -- Add widgets to the wibox
-        s.mywibox:setup {
-            layout = wibox.layout.align.horizontal,
-            expand = "none",
-            { -- Left widgets
-                {
-                    {
-                        layout = wibox.layout.fixed.horizontal,
-                        s.mytaglist,
-                    },
-                    widget = wibox.container.margin,
-                    margins = beautiful.taglist_bordersize,
-                    color = beautiful.fg_normal
-                },
-                layout = wibox.layout.fixed.horizontal
-            },
-            {
-                layout = wibox.layout.fixed.horizontal,
-                s.mytasklist, -- Middle widget
-
-
-            },
-            { -- Right widgets
-	    	{
-		    {
-                        layout = wibox.layout.fixed.horizontal,
-			spacing = beautiful.rightmenu_spacing,
-                        wibox.widget.systray(),
-                        widgets.sysclock,
-	    	    },
-		    widget = wibox.container.margin,
-		    margins = beautiful.rightmenu_bordersize,
-		    color = beautiful.rightmenu_border
-		},
-		layout = wibox.layout.fixed.horizontal,
-            },
-        }
-
-        -- body
-    end)
-
+    end
+    )
 end
 
-terminal = config.apps.terminal
-editor = os.getenv("EDITOR") or "nano"
-editor_cmd = terminal .. " -e " .. editor
+client.connect_signal("manage", function(c)
+	c:move_to_tag(tag.main.Web.tag)
+	tag.addSubtag(tag.main.Web, c)
 
-
+end)
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(keybinds.keyboard.global)
@@ -199,7 +144,6 @@ awful.rules.rules = {
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
-	c.shape = gears.shape.rect
 -- Set the windows at the slave,
 -- i.e. put it at the end of others instead of setting it master.
 -- if not awesome.startup then awful.client.setslave(c) end
@@ -223,5 +167,6 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
-awful.spawn.with_shell("sh " .. config.scripts .. config.device .. "/WMStart.sh")
+awful.spawn.with_shell("compton &")
+awful.spawn.with_shell("nm-applet &")
 -- }}}

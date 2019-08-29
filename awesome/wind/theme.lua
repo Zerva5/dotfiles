@@ -11,29 +11,29 @@ local themes_path = "/home/lmayall/dotfiles/awesome/"
 
 local theme = {}
 
-theme.font          = "Source Code Pro Semibold 10"
+theme.font          = "Source Code Pro Bold 10"
 
 
 theme.bg_normal     = "#3f4953"
 theme.bg_focus      = "#f9c8a8"
 theme.bg_urgent     = "#ecccbc"
 theme.bg_minimize   = "#b4a1a5"
-theme.bg_systray    = "#ecccbc"
+theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#ecccbc"
+theme.fg_normal     = "#dba687"
 theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
 theme.useless_gap   = dpi(10)
-theme.border_width  = dpi(5)
-theme.border_normal = "#566977"
-theme.border_focus  = "#c3abab"
+theme.border_width  = dpi(3)
+theme.border_normal = "#3f4953"
+theme.border_focus  = "#dba687"
 theme.border_marked = "#ecccbc"
 
 theme.bar_position = "top"
 
-theme.taglist_bg_focus = "#c3abab"
+theme.taglist_bg_focus = "#dba687"
 theme.taglist_bg_empty = "#3f4953"
 theme.taglist_bg_normal = "#566977"
 
@@ -59,9 +59,19 @@ theme.tasklist_bordersize = 0
 theme.tasklist_spacing = 0
 theme.tasklist_margin = 20
 
+theme.rightmenu_fg = theme.taglist_fg_empty
+theme.rightmenu_bg = theme.taglist_bg_empty
+theme.rightmenu_border = ""
+theme.rightmenu_bordersize = 0
+
+theme.rightmenu_spacing = 10
 
 theme.notification_bg = theme.taglist_bg_empty
-theme.notification_width = 100
+
+theme.volume_bar_bg = theme.taglist_bg_empty
+theme.volume_bar_fg = theme.taglist_bg_normal
+theme.volume_bar_margin = 30
+
 
 
 
@@ -169,3 +179,4 @@ theme.icon_theme = nil
 return theme
 
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
+--

@@ -1,11 +1,11 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local gears = require("gears")
-local naughty = require("naughty")
 
 
 local config = require("config")
 local widgets = require("widgets")
+local tag = require("tag")
 
 local keybinds = {}
 
@@ -14,29 +14,24 @@ keybinds.keyboard = {}
 keybinds.mouse = {}
 
 keybinds.keyboard.global = gears.table.join(
-
     awful.key({ config.modkey, "Control" }, "r", awesome.restart),
 
     awful.key({config.modkey}, "Return", function() awful.spawn(config.apps.terminal) end),
     awful.key({config.modkey}, "d", function() awful.spawn.with_shell("rofi -show run &") end),
 
+    
     awful.key({config.modkey}, "l", function() awful.client.focus.byidx(1) end),
     awful.key({config.modkey}, "h", function() awful.client.focus.byidx(-1) end),
     awful.key({config.modkey}, "m", awful.tag.viewnext),
     awful.key({config.modkey}, "n", awful.tag.viewprev),
 
-    awful.key({config.modkey}, "s", function() awful.screen.focus_relative (1) end),
 
-
-
-    awful.key({}, "XF86AudioRaiseVolume", function() widgets.volume_popup:volume_up() end),
-    awful.key({}, "XF86AudioLowerVolume", function() widgets.volume_popup:volume_down() end),
+    awful.key({}, "XF86AudioRaiseVolume", function() widgets.volume:up() end),
+    awful.key({}, "XF86AudioLowerVolume", function() widgets.volume:down() end),
 
     awful.key({}, "XF86AudioNext", function() awful.spawn.with_shell("playerctl next") end),
     awful.key({}, "XF86AudioPrev", function() awful.spawn.with_shell("playerctl previous") end),
     awful.key({}, "XF86AudioPlay", function() awful.spawn.with_shell("playerctl play-pause") end),
-
-    awful.key({config.modkey}, "c", function() naughty.notify({text = "This is a test", title = "Test"})end), 
 
     awful.key({ config.modkey, "Shift" }, "n", function ()
         if client.focus then
@@ -59,13 +54,13 @@ keybinds.keyboard.global = gears.table.join(
         end
     end),
 
-    awful.key({config.modkey, "Shift"}, "k", function ()
+    awful.key({config.modkey}, "j", function ()
         local c = awful.client.restore()
         -- Focus restored client
         if c then
           c:emit_signal(
               "request::activate", "key.unminimize", {raise = true}
-         )
+          )
         end
     end)
     --awful.key({config.modkey}, ),
@@ -108,20 +103,7 @@ keybinds.keyboard.client = gears.table.join(
 
     awful.key({config.modkey}, "k", function(c) c.minimized = true end),
 
-    awful.key({config.modkey}, "f", function(c) awful.client.floating.toggle(c) end),
-
-    awful.key({ config.modkey, "Shift" }, "s", function(c) 
-	    local oldtag = c.first_tag.index
-
-	    c:move_to_screen ()
-
-	    local newtags = awful.screen.focused().tags
-
-	    c:move_to_tag(newtags[oldtag])
-
-
-    end)
-
+    awful.key({config.modkey}, "e", function(c) tag.cycleClient(c, 1) end)
 )
 
 keybinds.mouse.client = gears.table.join(
@@ -136,24 +118,7 @@ keybinds.mouse.client = gears.table.join(
         c:emit_signal("request::activate", "mouse_click", {raise = true})
         awful.mouse.client.resize(c)
     end)
-)
 
-keybinds.mouse.taglist = gears.table.join(
-    awful.button({ }, 1, function(t) t:view_only() end)
-)
-
-keybinds.mouse.tasklist = gears.table.join(
-    awful.button({ }, 1, function (c)
-        if c == client.focus then
-                c.minimized = true
-            else
-                c:emit_signal(
-                    "request::activate",
-                    "tasklist",
-                    {raise = true}
-                )
-            end
-        end)
 )
 
 
