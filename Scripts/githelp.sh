@@ -33,12 +33,14 @@ case "$REPO" in
 	REPOPATH="/home/lmayall/dotfiles" ;;
 esac
 
-if [ $ACTION == "push" ];
+if [ "$ACTION" == "push" ];
 then
 	push
-elif [ $ACTION == "pull" ];
+elif [ "$ACTION" == "pull" ];
 then
 	pull
 fi
 
 exit 0
+
+#
