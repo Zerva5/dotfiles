@@ -47,7 +47,7 @@ menu.taglist.widget_template = {
     	self.fg = beautiful.taglist_fg_empty
         else
             self.bg = beautiful.taglist_bg_normal
-    	self.fg = beautiful.taglist_fg_normal
+    		self.fg = beautiful.taglist_fg_normal
         end
 
         if t == awful.screen.focused().selected_tag then

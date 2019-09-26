@@ -2,10 +2,10 @@
 
 if [ $(hostname) == "LMDESK" ]
 then
-	rsync -au --delete --quiet -e ssh /home/lmayall/Documents/School/ lmayall@LMTHINK.local:/home/lmayall/Documents/School
-	rsync -au --delete --quiet -e ssh /home/lmayall/vimwiki/ lmayall@LMTHINK.local:/home/lmayall/vimwiki
-	rsync -au --delete --quiet -e ssh /home/lmayall/.config/nvim/ lmayall@LMTHINK.local:/home/lmayall/.config/nvim
-	rsync -au --delete --quiet -e ssh /home/lmayall/todo/ lmayall@LMTHINK.local:/home/lmayall/todo
+	rsync -au --quiet -e ssh /home/lmayall/Documents/School/ lmayall@LMTHINK.local:/home/lmayall/Documents/School
+	rsync -au --quiet -e ssh /home/lmayall/vimwiki/ lmayall@LMTHINK.local:/home/lmayall/vimwiki
+	rsync -au --quiet -e ssh /home/lmayall/.config/nvim/ lmayall@LMTHINK.local:/home/lmayall/.config/nvim
+	rsync -au --quiet -e ssh /home/lmayall/todo/ lmayall@LMTHINK.local:/home/lmayall/todo
 	
 
 elif [ $(hostname) == "LMTHINK" ]
