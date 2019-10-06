@@ -43,11 +43,11 @@ menu.taglist.widget_template = {
 
     update_callback = function(self, t, index, objects)
         if next(t:clients()) == nil then
-    	self.bg = beautiful.taglist_bg_empty
-    	self.fg = beautiful.taglist_fg_empty
+    	    self.bg = beautiful.taglist_bg_empty
+    	    self.fg = beautiful.taglist_fg_empty
         else
             self.bg = beautiful.taglist_bg_normal
-    		self.fg = beautiful.taglist_fg_normal
+	    self.fg = beautiful.taglist_fg_normal
         end
 
         if t == awful.screen.focused().selected_tag then

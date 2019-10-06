@@ -17,7 +17,7 @@ local beautiful = require("beautiful")
 local config = require("config")
 
 do
-    beautiful.init(config.theme.path .. config.theme.name .. "/theme.lua")
+	beautiful.init(config.theme.path .. config.theme.name .. "/theme.lua")
 end
 
 local hostname = io.popen("uname -n"):read()
