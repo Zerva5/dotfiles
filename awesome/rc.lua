@@ -1,5 +1,4 @@
 local awful = require("awful")
-local volume_control = require("volume-control")
 local math = require("math")
 local gears = require("gears")
 awful.client = require("awful.client")

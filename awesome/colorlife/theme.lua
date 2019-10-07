@@ -18,7 +18,7 @@ theme.bg_normal     = "#22193c22"
 theme.bg_focus      = "#f9c8a8"
 theme.bg_urgent     = "#ecccbc"
 theme.bg_minimize   = "#b4a1a5"
-theme.bg_systray    = theme.bg_normal
+theme.bg_systray    = "#00000000"
 
 theme.fg_normal     = "#1af2feBB"
 theme.fg_focus      = "#ffffff"
@@ -71,6 +71,11 @@ theme.notification_bg = theme.taglist_bg_empty
 theme.volume_bar_bg = "#22193c00"
 theme.volume_bar_fg = "#fc3948"
 theme.volume_bar_margin = 30
+theme.volume_bar_mute = "#fc394888"
+
+theme.brightness_bar_bg = "#22193c00"
+theme.brightness_bar_fg = "#1af2fe88"
+theme.brightness_bar_margin = 30
 
 
 

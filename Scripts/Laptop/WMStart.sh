@@ -1,5 +1,6 @@
+
 #!/bin/bash
 
-compton &
+compton --config ~/.config/compton/compton.conf &
 nm-applet &
 

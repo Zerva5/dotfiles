@@ -27,11 +27,13 @@ keybinds.keyboard.global = gears.table.join(
 
     awful.key({config.modkey}, "s", function() awful.screen.focus_relative (1) end),
 
-
-
     awful.key({}, "XF86AudioRaiseVolume", function() widgets.volume_popup:volume_up() end),
     awful.key({}, "XF86AudioLowerVolume", function() widgets.volume_popup:volume_down() end),
+    awful.key({}, "XF86AudioMute", function() widgets.volume_popup:mute() end),
 
+    awful.key({}, "XF86MonBrightnessUp", function() widgets.brightness_popup:brightness_up() end),
+    awful.key({}, "XF86MonBrightnessDown", function() widgets.brightness_popup:brightness_down() end),
+    
     awful.key({}, "XF86AudioNext", function() awful.spawn.with_shell("playerctl next") end),
     awful.key({}, "XF86AudioPrev", function() awful.spawn.with_shell("playerctl previous") end),
     awful.key({}, "XF86AudioPlay", function() awful.spawn.with_shell("playerctl play-pause") end),

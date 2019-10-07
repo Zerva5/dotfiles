@@ -64,4 +64,26 @@ function volume_popup:volume_up()
 	end)
 end
 
+function volume_popup:mute()
+	awful.spawn.easy_async_with_shell("pamixer --get-mute", function(ismute)
+		if ismute == "false\n" then
+                   self.popup.widget.bar.color = beautiful.volume_bar_mute
+		else
+                   self.popup.widget.bar.color = beautiful.volume_bar_fg
+                end
+                
+		awful.spawn.easy_async_with_shell("pamixer -t", function(n)
+			awful.spawn.easy_async_with_shell("pamixer --get-volume", function(out)
+				self.popup.widget.bar.value = out / 100
+			end)
+		end)
+		
+		if self.timer.started == true then
+			self.timer:again()
+		else
+			self.popup.visible = true
+			self.timer:start()
+		end
+	end)
+end
 return volume_popup

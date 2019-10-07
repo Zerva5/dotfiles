@@ -12,12 +12,12 @@ local themes_path = "/home/lmayall/dotfiles/awesome/"
 local theme = {}
 
 theme.font          = "Source Code Pro Bold 10"
+theme.opacity       = "FF"
 
-
-theme.bg_normal     = "#3f4953"
-theme.bg_focus      = "#f9c8a8"
-theme.bg_urgent     = "#ecccbc"
-theme.bg_minimize   = "#b4a1a5"
+theme.bg_normal     = "#3f4953" .. theme.opacity
+theme.bg_focus      = "#f9c8a8" .. theme.opacity
+theme.bg_urgent     = "#ecccbc" .. theme.opacity
+theme.bg_minimize   = "#b4a1a5" .. theme.opacity
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "#dba687"
@@ -34,12 +34,12 @@ theme.border_marked = "#ecccbc"
 theme.bar_position = "top"
 
 theme.taglist_bg_focus = "#dba687"
-theme.taglist_bg_empty = "#3f4953"
-theme.taglist_bg_normal = "#566977"
+theme.taglist_bg_empty = "#3f4953" .. theme.opacity
+theme.taglist_bg_normal = "#566977" .. theme.opacity
 
 theme.taglist_fg_focus = "#3f4953"
-theme.taglist_fg_empty = theme.taglist_bg_focus
-theme.taglist_fg_normal = theme.taglist_bg_focus
+theme.taglist_fg_empty = "#dba687"
+theme.taglist_fg_normal = "#dba687"
 
 theme.taglist_bordercolor = ""
 theme.taglist_bordersize = 0
@@ -51,7 +51,7 @@ theme.tasklist_bg_empty = theme.taglist_bg_empty
 theme.tasklist_bg_normal = theme.taglist_bg_normal
 
 theme.tasklist_fg_focus = theme.taglist_fg_focus
-theme.tasklist_fg_empty = theme.taglist_bg_normal
+theme.tasklist_fg_empty = "#566977"
 theme.tasklist_fg_normal = theme.taglist_fg_normal
 
 theme.tasklist_bordercolor = ""
@@ -69,7 +69,7 @@ theme.rightmenu_spacing = 10
 theme.notification_bg = theme.taglist_bg_empty
 
 theme.volume_bar_bg = theme.taglist_bg_empty
-theme.volume_bar_fg = theme.taglist_bg_normal
+theme.volume_bar_fg = theme.taglist_bg_focus
 theme.volume_bar_margin = 30
 
 
