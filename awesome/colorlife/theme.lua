@@ -11,7 +11,7 @@ local themes_path = "/home/lmayall/dotfiles/awesome/"
 
 local theme = {}
 
-theme.font          = "Source Code Pro Bold 10"
+theme.font          = "Iosevka Heavy 11"
 
 
 theme.bg_normal     = "#22193c22"
@@ -185,3 +185,4 @@ return theme
 
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
 --
+
