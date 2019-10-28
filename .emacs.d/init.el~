@@ -26,13 +26,11 @@
 (menu-bar-mode   -1)
 (setq-default indent-tabs-mode nil)
 
-(set-frame-parameter (selected-frame) 'alpha '(70 50))
-(add-to-list 'default-frame-alist '(alpha 70 50))
-
 (set-frame-font "Iosevka Medium 12" nil t)
 
 ;; Org settings
 (setq org-hide-emphasis-markers t)
+
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'variable-pitch-mode)
 
@@ -71,7 +69,7 @@
  '(line-spacing 0.2)
  '(package-selected-packages
    (quote
-    (lua-mode org-beautify-theme org-bullets org-variable-pitch elpy poet-theme use-package org-plus-contrib org doom-themes darcula-theme abyss-theme))))
+    (org-journal lua-mode org-beautify-theme org-bullets org-variable-pitch elpy poet-theme use-package org-plus-contrib org doom-themes darcula-theme abyss-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

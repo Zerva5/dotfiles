@@ -30,6 +30,7 @@
 
 ;; Org settings
 (setq org-hide-emphasis-markers t)
+(setq org-agenda-include-diary t)
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'variable-pitch-mode)
 
