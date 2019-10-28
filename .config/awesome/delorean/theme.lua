@@ -7,12 +7,11 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
 local gfs = require("gears.filesystem")
-local themes_path = "/home/lmayall/dotfiles/awesome/"
+local themes_path = "/home/lmayall/dotfiles/.config/awesome/"
 
 local theme = {}
 
 theme.font          = "Iosevka Heavy 11"
-
 
 theme.bg_normal     = "#181818"
 theme.bg_focus      = "#f9c8a8"

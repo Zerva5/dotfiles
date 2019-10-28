@@ -38,6 +38,19 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c C-l") 'org-insert-link)
 
+;; Web-Mode
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
+(setq web-mode-enable-auto-pairing t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -69,7 +82,7 @@
  '(line-spacing 0.2)
  '(package-selected-packages
    (quote
-    (lua-mode org-beautify-theme org-bullets org-variable-pitch elpy poet-theme use-package org-plus-contrib org doom-themes darcula-theme abyss-theme))))
+    (indium js2-mode rainbow-mode web-mode lua-mode org-beautify-theme org-bullets org-variable-pitch elpy poet-theme use-package org-plus-contrib org doom-themes darcula-theme abyss-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

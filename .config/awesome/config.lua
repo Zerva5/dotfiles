@@ -16,7 +16,7 @@ end
 
 config.theme = {}
 
-config.theme.path = "/home/lmayall/dotfiles/awesome/"
+config.theme.path = "/home/lmayall/dotfiles/.config/awesome/"
 config.theme.name = "delorean"
 
 
