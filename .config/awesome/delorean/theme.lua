@@ -20,7 +20,7 @@ theme.bg_minimize   = "#b4a1a5"
 theme.bg_systray    = "#181818"
 
 -- b895a0
-theme.fg_normal     = "#ccb3bb"
+theme.fg_normal     = "#ffffff"
 theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
@@ -38,8 +38,8 @@ theme.taglist_bg_empty = "#181818"
 theme.taglist_bg_normal = "#181818"
 
 theme.taglist_fg_focus = theme.fg_normal
-theme.taglist_fg_empty = "#101010"
-theme.taglist_fg_normal = "#644550"
+theme.taglist_fg_empty = "#545454"
+theme.taglist_fg_normal = "#a6a6a6"
 
 theme.taglist_bordercolor = ""
 theme.taglist_bordersize = 0
