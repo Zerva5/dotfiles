@@ -11,5 +11,7 @@ widgets.taglist = require("widgets.taglist")
 
 widgets.tasklist = require("widgets.tasklist")
 
+widgets.sideInfo = require("widgets.sideInfo")
+
 
 return widgets

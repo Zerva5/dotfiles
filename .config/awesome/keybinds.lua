@@ -15,6 +15,8 @@ keybinds.mouse = {}
 
 keybinds.keyboard.global = gears.table.join(
 
+   awful.key({ config.modkey}, "`", function()widgets.sideInfo:toggleVisible() end),
+
     awful.key({ config.modkey, "Control" }, "r", awesome.restart),
 
     awful.key({config.modkey}, "Return", function() awful.spawn(config.apps.terminal) end),
