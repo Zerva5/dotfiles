@@ -11,6 +11,10 @@ local themes_path = "/home/lmayall/dotfiles/.config/awesome/"
 
 local theme = {}
 
+theme.fontname = "Iosevka"
+theme.fontsize = "11"
+theme.fontweight = "Heavy"
+
 theme.font          = "Iosevka Heavy 11"
 
 theme.bg_normal     = "#181818"
