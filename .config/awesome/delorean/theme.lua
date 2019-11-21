@@ -18,6 +18,7 @@ theme.fontweight = "Heavy"
 theme.font          = "Iosevka Heavy 11"
 
 theme.bg_normal     = "#181818"
+
 theme.bg_focus      = "#f9c8a8"
 theme.bg_urgent     = "#ecccbc"
 theme.bg_minimize   = "#b4a1a5"
@@ -29,10 +30,11 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.useless_gap   = dpi(6)
-theme.border_width  = dpi(0)
-theme.border_normal = "#3f495300"
-theme.border_focus  = "#fc394811"
+theme.useless_gap   = dpi(2)
+theme.border_width  = dpi(2)
+theme.border_normal = "#000000"
+theme.border_focus  = "#cfa0ac"
+-- theme.border_focus = "#ffffff"
 theme.border_marked = "#ecccbc00"
 
 theme.bar_position = "top"

@@ -4,12 +4,19 @@ local wibox = require("../wibox")
 local gears = require("gears")
 local naughty = require("naughty")
 local helpers = require("widgets.helpers")
+local cairo = require("lgi").cairo
 
 sideInfo = {}
 
+-- Create a surface
+-- local img = cairo.ImageSurface.create(cairo.Format.ARGB32, 50, 50)
+
+-- Create a context
+-- local cr  = cairo.Context(img)
+
 sideInfo.mainClock = wibox.widget{
    widget = wibox.widget.textclock,
-   format = "%T",
+   format = "%H:%M",
    refresh = 1,
    font = beautiful.fontname .. " Bold" .. " 40",
    align = "center"
@@ -17,22 +24,33 @@ sideInfo.mainClock = wibox.widget{
 
 sideInfo.altClock = wibox.widget{
    widget = wibox.widget.textclock,
-   format = "%a %b %d",
-   font = beautiful.fontname .. " Heavy" .. " 20",
+   format = "%A\n%B %d, %Y",
+   font = beautiful.fontname .. " Heavy" .. " 15",
    align = "center"
 }
 
-sideInfo.volumeDisplay = wibox.widget{
-   widget = wibox.widget.textbox,
-   text = "110%",
-   align = "center"
+sideInfo.lmHomeOnline = wibox.widget{
+   {
+      widget = wibox.widget.textbox,
+      text = "HI",
+      align = "center",
+
+   },
+   layout = wibox.container.background,
+   bg = "#FF0000",
+   forced_width = 10,
+   forced_height = 20,
+   
+   shape = gears.shape.rounded_rect
 }
+
+
 
 
 sideInfo.wibox = wibox({
             x = 0,
             y = 0,
-            width = 300,
+            width = awful.screen.focused().geometry.width / 6,
             height = awful.screen.focused().geometry.height,
             ontop = true,
             visible = false,
@@ -40,17 +58,19 @@ sideInfo.wibox = wibox({
             widget = wibox.widget {
                layout = wibox.container.place,
                valign = "top",
-               halign = "center",
+               -- halign = "center",
 
                {
                   {
                      sideInfo.mainClock,
                      sideInfo.altClock,
-                     sideInfo.volumeDisplay,
-                     layout = wibox.layout.align.vertical
+                     -- sideInfo.lmHomeOnline,
+                     -- sideInfo.volumeDisplay,
+                     -- layout = wibox.layout.align.vertical
+                     layout = wibox.layout.fixed.vertical
                   },
                   layout = wibox.container.margin,
-                  margins = 10
+                  margins = 20
 
                },
             }
@@ -67,6 +87,7 @@ function sideInfo:Update()
    awful.spawn.easy_async_with_shell("pamixer --get-volume", function(out)
                                         sideInfo.volumeDisplay.text = tonumber(out) .. "%"
    end)
+   
 end
 
 
