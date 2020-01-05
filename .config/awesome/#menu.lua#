@@ -44,10 +44,11 @@ menu.taglist.widget_template = {
     update_callback = function(self, t, index, objects)
         if next(t:clients()) == nil then
     	    self.bg = beautiful.taglist_bg_empty
-    	    self.fg = beautiful.taglist_fg_empty
+    	    --self.fg =beautiful.taglist_fg_empty
+            self.fg = "#ff0000"
         else
             self.bg = beautiful.taglist_bg_normal
-	    self.fg = beautiful.taglist_fg_normal
+	        self.fg = beautiful.taglist_fg_normal
         end
 
         if t == awful.screen.focused().selected_tag then
@@ -78,7 +79,7 @@ menu.tasklist.widget_template = {
     widget = wibox.container.background,
 
     create_callback = function(self, c, index, objects)
-        self:get_children_by_id("task_name")[1].text = c.class
+        self:get_children_by_id("task_name")[1].text = "Gello"uuu
         if c == client.focus then
             self.fg = beautiful.tasklist_fg_focus
 	    self.bg = beautiful.tasklist_bg_focus
@@ -91,7 +92,7 @@ menu.tasklist.widget_template = {
         end
     end,
     update_callback = function(self, c, index, objects)
-        self:get_children_by_id("task_name")[1].text = c.class
+        self:get_children_by_id("task_name")[1].text = c.name
 
         if c == client.focus then
             self.fg = beautiful.tasklist_fg_focus

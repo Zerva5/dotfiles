@@ -12,22 +12,20 @@ require("awful.dbus")
 require("awful.remote")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local naughty = require("naughty")
 
 local config = require("config")
-
-local hostname = io.popen("uname -n"):read()
-
-awful.spawn.with_shell("sh " .. config.scripts .. config.device .. "/WMStart.sh")
 
 do
 	beautiful.init(config.theme.path .. config.theme.name .. "/theme.lua")
 end
 
+local hostname = io.popen("uname -n"):read()
+
+
 local widgets = require("widgets")
 local functions = require("functions")
 local keybinds = require("keybinds")
---local menu = require("menu")
+local menu = require("menu")
 
 local config_path = "/home/lmayall/dotfiles/awesome"
 
@@ -71,7 +69,7 @@ do
         s.mytasklist = widgets.tasklist.create(s)
 
         -- Create the wibox
-        s.mywibox = awful.wibar({ position = beautiful.bar_position, screen = s, width = beautiful.bar_width, height = beautiful.bar_height})
+        s.mywibox = awful.wibar({ position = beautiful.bar_position, screen = s, width = beautiful.bar_width})
 
         -- Add widgets to the wibox
         s.mywibox:setup {
@@ -100,7 +98,7 @@ do
                     {
                         layout = wibox.layout.fixed.horizontal,
                         spacing = beautiful.rightmenu_spacing,
-                        wibox.widget.systray(),
+                        --wibox.widget.systray(),
                         widgets.sysclock,
                     },
                     widget = wibox.container.margin,
@@ -147,8 +145,7 @@ awful.rules.rules = {
                  buttons = clientbuttons,
                  screen = awful.screen.preferred,
                  placement = awful.placement.no_overlap+awful.placement.no_offscreen
- },
-  callback = awful.client.setslave
+ }
 },
 
 -- Floating clients.
@@ -188,26 +185,12 @@ awful.rules.rules = {
   properties = {floating = false},
 
   rule_any = {
-      class = {"firefox", "jetbrains-idea"},
+      class = {"firefox"},
 
   },
-  properties = {maximized = false, maximized = false, focusable = true},
+  properties = {maximized = false},
 
-    --rule_any = {
-    --    class = "jetbrains-.*",
-    --    instance = "sun-awt-X11-XWindowPeer",
-    --    name = "win.*"
-    --},
-    --properties = {
-    --    floating = true,
-    --    focus = true,
-    --    focusable = false,
-    --    ontop = true,
-    --    placement = awful.placement.restore,
-    --    buttons = {}
-    --},
-},
-
+  },
 
 
 -- Add titlebars to normal clients and dialogs:
@@ -240,6 +223,8 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+awful.spawn.with_shell("sh " .. config.scripts .. config.device .. "/WMStart.sh")
 -- }}}
 --
 --

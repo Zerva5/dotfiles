@@ -84,7 +84,7 @@ scrolling:
   # to allow mouse scrolling for applications like `man`.
   #
   # Specifying `0` will disable faux scrolling.
-  faux_multiplier: 3
+#  faux_multiplier: 3
 
   # Scroll to the bottom when new text is written to the terminal.
   auto_scroll: false
@@ -108,7 +108,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux) monospace
     #   - (Windows) Consolas
-    family: Source Code Pro
+    family: Iosevka
 
     # The `style` can be specified to pick a specific face.
     style: Semibold
@@ -119,7 +119,7 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Source Code Pro
+    family: Iosevka
 
     # The `style` can be specified to pick a specific face.
     style: Bold
@@ -130,7 +130,7 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Source Code Pro
+    family: Iosevka
 
     # The `style` can be specified to pick a specific face.
     style: Italic
@@ -174,8 +174,8 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Default colors
   primary:
-    background: '#2d3033'
-    foreground: '#ccc7c7'
+    background: '#03090D'
+    foreground: '#E3F7FF'
 
     # Bright and dim foreground colors
     #
@@ -278,7 +278,7 @@ visual_bell:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.9
+background_opacity: 0.5
 
 # Mouse bindings
 #

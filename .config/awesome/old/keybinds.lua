@@ -15,49 +15,34 @@ keybinds.mouse = {}
 
 keybinds.keyboard.global = gears.table.join(
 
+   awful.key({ config.modkey}, "`", function()widgets.sideInfo:toggleVisible() end),
 
-        awful.key({ config.modkey, "Shift"   }, "n",     function () awful.tag.incnmaster(-1, nil, true) end),
-        awful.key({ config.modkey, "Shift"   }, "m",     function () awful.tag.incnmaster( 1, nil, true) end),
+    awful.key({ config.modkey, "Control" }, "r", awesome.restart),
 
-        awful.key({ config.modkey, "Control" }, "m",     function () awful.tag.incncol( 1, nil, true)    end),
-        awful.key({ config.modkey, "Control" }, "n",     function () awful.tag.incncol(-1, nil, true)    end),
+    awful.key({config.modkey}, "Return", function() awful.spawn(config.apps.terminal) end),
+    awful.key({config.modkey}, "d", function() awful.spawn.with_shell("rofi -show run &") end),
 
-        awful.key({ config.modkey}, "`", function() widgets.sideInfo:toggleVisible() end),
-
-        awful.key({ config.modkey, "Control" }, "r", awesome.restart),
-
-        awful.key({config.modkey}, "Return", function() awful.spawn(config.apps.terminal) end),
-        awful.key({config.modkey}, "d", function() awful.spawn.with_shell("rofi -show run &") end),
-
-        awful.key({config.modkey}, "l", function() awful.client.focus.byidx(1) end),
-        awful.key({config.modkey}, "j", function() awful.client.focus.byidx(-1) end),
-
-        awful.key({ config.modkey, "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end),
-        awful.key({ config.modkey, "Shift"   }, "j", function () awful.client.swap.byidx( -1)    end),
-
-
-    awful.key({config.modkey}, ".", awful.tag.viewnext),
-    awful.key({config.modkey}, ",", awful.tag.viewprev),
+    awful.key({config.modkey}, "l", function() awful.client.focus.byidx(1) end),
+    awful.key({config.modkey}, "h", function() awful.client.focus.byidx(-1) end),
+    awful.key({config.modkey}, "m", awful.tag.viewnext),
+    awful.key({config.modkey}, "n", awful.tag.viewprev),
 
     awful.key({config.modkey}, "s", function() awful.screen.focus_relative (1) end),
 
     awful.key({}, "XF86AudioRaiseVolume", function() widgets.volume_popup:volume_up() end),
     awful.key({}, "XF86AudioLowerVolume", function() widgets.volume_popup:volume_down() end),
     awful.key({}, "XF86AudioMute", function() widgets.volume_popup:mute() end),
-    awful.key({}, "XF86AudioStop", function () widgets.volume_popup:mute() end),
 
     awful.key({}, "XF86MonBrightnessUp", function() widgets.brightness_popup:brightness_up() end),
     awful.key({}, "XF86MonBrightnessDown", function() widgets.brightness_popup:brightness_down() end),
-        awful.key({config.modkey}, "b", function() widgets.brightness_popup:brightness_up() end),
-        awful.key({config.modkey, "Shift"}, "b", function() widgets.brightness_popup:brightness_down() end),
-
+    
     awful.key({}, "XF86AudioNext", function() awful.spawn.with_shell("playerctl next") end),
     awful.key({}, "XF86AudioPrev", function() awful.spawn.with_shell("playerctl previous") end),
     awful.key({}, "XF86AudioPlay", function() awful.spawn.with_shell("playerctl play-pause") end),
 
-    awful.key({config.modkey}, "c", function() naughty.notify({text = "This is a test", title = "Test"})end),
+    awful.key({config.modkey}, "c", function() naughty.notify({text = "This is a test", title = "Test"})end), 
 
-    awful.key({ config.modkey, "Shift" }, ",", function ()
+    awful.key({ config.modkey, "Shift" }, "n", function ()
         if client.focus then
             local tagIndex = (client.focus.first_tag.index - 2) % 10 + 1
             local tag = client.focus.screen.tags[tagIndex]
@@ -67,7 +52,7 @@ keybinds.keyboard.global = gears.table.join(
             end
         end
     end),
-    awful.key({ config.modkey, "Shift" }, ".", function ()
+    awful.key({ config.modkey, "Shift" }, "m", function ()
         if client.focus then
             local tagIndex = (client.focus.first_tag.index) % 10 + 1
             local tag = client.focus.screen.tags[tagIndex]
@@ -128,10 +113,6 @@ keybinds.keyboard.client = gears.table.join(
     awful.key({config.modkey}, "k", function(c) c.minimized = true end),
 
     awful.key({config.modkey}, "f", function(c) awful.client.floating.toggle(c) end),
-
-    awful.key({config.modkey}, "x", function (c)
-        c.maximized_horizontal = not c.maximized_horizontal
-        c.maximized_vertical   = not c.maximized_vertical end),
 
     awful.key({ config.modkey, "Shift" }, "s", function(c) 
 	    local oldtag = c.first_tag.index
