@@ -91,6 +91,11 @@ theme.brightness_bar_bg = "#22193c00"
 theme.brightness_bar_fg = "#1af2fe88"
 theme.brightness_bar_margin = 30
 
+theme.SIcpuUsage_bg = "#000000ff"
+theme.SIcpuUsage_fg_normal = "#ffffff"
+theme.SIcpuUsage_fg_medium = "#ffc147"
+theme.SIcpuUsage_fg_high = "#ff4c4c"
+
 
 
 

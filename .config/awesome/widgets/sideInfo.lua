@@ -44,7 +44,32 @@ sideInfo.lmHomeOnline = wibox.widget{
    shape = gears.shape.rounded_rect
 }
 
-
+sideInfo.cpuUsageBar = {
+   cpu_bar = wibox.widget{
+      {
+         max_value = 100,
+         value = 50,
+         id = "bar",
+         forced_height = 15,
+         color = "#0000ff",
+         background_color = beautiful.SIcpuUsage_bg,
+         widget = wibox.widget.progressbar
+      },
+      layout  = wibox.container.margin,
+      top = 40,
+      left = 15,
+      right = 15,
+   },
+   timer = gears.timer{
+      timeout = 5,
+      autostart = true,
+      single_shot = false,
+      callback = function()
+         -- Get cpu usage with command
+         -- volume_popup.popup.visible = false					
+      end
+   }
+}
 
 
 sideInfo.wibox = wibox({
@@ -64,6 +89,8 @@ sideInfo.wibox = wibox({
                   {
                      sideInfo.mainClock,
                      sideInfo.altClock,
+--                     wibox.widget.seprator,
+                     sideInfo.cpuUsageBar.cpu_bar,
                      -- sideInfo.lmHomeOnline,
                      -- sideInfo.volumeDisplay,
                      -- layout = wibox.layout.align.vertical
