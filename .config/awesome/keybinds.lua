@@ -14,7 +14,12 @@ keybinds.keyboard = {}
 keybinds.mouse = {}
 
 keybinds.keyboard.global = gears.table.join(
+        awful.key({}, "Print", function()
+            local screen = awful.screen.focused()
+            local screenID = screen.index
 
+            awful.spawn.with_shell("sh /home/lmayall/dotfiles/Scripts/screenshot.sh " .. screenID)
+        end),
 
         awful.key({ config.modkey, "Shift"   }, "n",     function () awful.tag.incnmaster(-1, nil, true) end),
         awful.key({ config.modkey, "Shift"   }, "m",     function () awful.tag.incnmaster( 1, nil, true) end),
