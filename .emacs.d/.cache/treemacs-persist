@@ -1,0 +1,14 @@
+* School
+** CSC115
+ - path :: ~/Documents/School/T2Y1/CSC115
+** STAT123
+ - path :: ~/Documents/School/T2Y1/MATH122
+** STAT123
+ - path :: ~/Documents/School/T2Y1/STAT123
+** ECON104
+ - path :: ~/Documents/School/T2Y1/ECON104
+** MATH101
+ - path :: ~/Documents/School/T2Y1/MATH101
+* config
+** emacs
+ - path :: ~/.emacs.d
