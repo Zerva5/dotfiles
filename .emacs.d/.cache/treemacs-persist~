@@ -10,7 +10,5 @@
 ** MATH101
  - path :: ~/Documents/School/T2Y1/MATH101
 * config
-** STAT123
- - path :: ~/Documents/School/T2Y1/CSC115
 ** emacs
  - path :: ~/.emacs.d

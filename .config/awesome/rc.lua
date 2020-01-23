@@ -231,7 +231,7 @@ end
 end)
 
 
-
+naughty.config.defaults['icon_size'] = 100
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)

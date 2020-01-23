@@ -10,5 +10,5 @@
 ** MATH101
  - path :: ~/Documents/School/T2Y1/MATH101
 * config
-** emacs
- - path :: ~/.emacs.d
+** dotfiles
+ - path :: ~/dotfiles

@@ -23,7 +23,7 @@ config.hostname = io.popen("uname -n"):read()
 config.theme = {}
 
 config.theme.path = "/home/lmayall/dotfiles/.config/awesome/"
-config.theme.name = "ice"
+config.theme.name = "fog"
 
 
 config.scripts = "/home/lmayall/dotfiles/Scripts/"
