@@ -35,10 +35,28 @@ There are two things you can do about this warning:
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-echo-area-message "")
  '(inhibit-startup-screen t)
- '(initial-buffer-choice t))
+ '(initial-buffer-choice t)
+ '(package-selected-packages (quote (treemacs doom-themes)))
+ '(tool-bar-mode nil)
+ '(tooltip-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka" :foundry "CYEL" :slant normal :weight normal :height 143 :width normal)))))
+
+
+;; Org-Mode Config
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+
+(require 'flyspell)
+(flyspell-mode +1)
+
+;; Keybinds
+;;
+
+(global-set-key (kbd "C-c s") 'flyspell-buffer)
+

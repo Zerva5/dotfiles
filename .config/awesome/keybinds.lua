@@ -145,7 +145,7 @@ keybinds.keyboard.client = gears.table.join(
 
 	    local newtags = awful.screen.focused().tags
 
-	    c:move_to_tag(newtags[oldtag])
+--	    c:move_to_tag(newtags[oldtag])
 
 
     end)
