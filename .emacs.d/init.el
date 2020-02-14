@@ -41,7 +41,8 @@ There are two things you can do about this warning:
  '(initial-buffer-choice t)
  '(package-selected-packages
    (quote
-    (ess sr-speedbar company-auctex ivy use-package auctex)))
+    (smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex)))
+ '(pixel-scroll-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
 (custom-set-faces
@@ -132,22 +133,25 @@ There are two things you can do about this warning:
   :mode
   (("\\.R$" . R-mode))
   (("\\.r$" . R-mode))
-)
+  )
+
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (rainbow-delimiters-mode)
+  )
+
+(use-package smooth-scroll
+  :config
+  (smooth-scroll-mode 1)
+  (setq smooth-scroll/vscroll-step-size 5)
+  )
+;; Non-package config
+
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
 
 ;; Spell check config
 ;; (require 'flyspell)
 ;; (flyspell-mode +1)
 
 ;; (global-set-key (kbd "C-c s") 'flyspell-buffer)
-
-
-
-
-
-
-
-
-
-
-
-
