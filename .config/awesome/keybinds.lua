@@ -32,6 +32,7 @@ keybinds.keyboard.global = gears.table.join(
         awful.key({ config.modkey, "Control" }, "r", awesome.restart),
 
         awful.key({config.modkey}, "Return", function() awful.spawn(config.apps.terminal) end),
+	awful.key({config.modkey}, "n", function() awful.spawn("emacsclient -c -n")end),
         awful.key({config.modkey}, "d", function() awful.spawn.with_shell("rofi -show run &") end),
 
         awful.key({config.modkey}, "l", function() awful.client.focus.byidx(1) end),

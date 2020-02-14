@@ -1,5 +1,3 @@
-(global-set-key [C-tab] 'treemacs)
-
 ;; Init MELPA! pls no touch
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
@@ -27,6 +25,11 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-backends
+   (quote
+    (company-elisp company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
+		   (company-dabbrev-code company-gtags company-etags company-keywords)
+		   company-oddmuse company-dabbrev)))
  '(custom-enabled-themes (quote (doom-one)))
  '(custom-safe-themes
    (quote
@@ -36,7 +39,9 @@ There are two things you can do about this warning:
  '(inhibit-startup-echo-area-message "")
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t)
- '(package-selected-packages (quote (treemacs doom-themes)))
+ '(package-selected-packages
+   (quote
+    (ess sr-speedbar company-auctex ivy use-package auctex)))
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
 (custom-set-faces
@@ -46,17 +51,103 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka" :foundry "CYEL" :slant normal :weight normal :height 143 :width normal)))))
 
+;; Use-package install and startup
 
-;; Org-Mode Config
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-(require 'flyspell)
-(flyspell-mode +1)
+(eval-when-compile
+  (require 'use-package))
 
-;; Keybinds
-;;
 
-(global-set-key (kbd "C-c s") 'flyspell-buffer)
+(use-package tex
+  :ensure auctex
+  :mode (("\\.tex$" . TeX-mode))
+  )
+
+(use-package org
+  :mode (("\\.org$" . org-mode))
+  :config
+  (define-key org-mode-map (kbd "C-<tab>") nil)
+  :bind (
+	 ("C-c l" . org-store-link)
+	 ("C-c a" . org-agenda)	 
+	 )
+)
+
+(use-package ivy
+  :ensure t
+  :config(ivy-mode 1)
+  )
+
+(use-package swiper
+  :after (ivy)
+  :ensure t
+  :bind(
+	("C-s" . 'swiper)
+	)
+  )
+
+(use-package counsel
+  :after swiper
+  :ensure t)
+
+(use-package doom-themes
+  :ensure t)
+
+(use-package treemacs
+  :ensure t
+  :bind(
+	([C-tab] . 'treemacs)
+	)
+  )
+
+(use-package company
+  :ensure t
+  
+  :config
+  (add-hook 'after-init-hook 'global-company-mode)
+  
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1)
+  (setq company-selection-wrap-around t)
+  
+  (company-tng-configure-default)
+  )
+
+(use-package company-auctex
+  :after tex
+  :config
+  (company-auctex-init)
+  )
+
+(use-package sr-speedbar
+  :ensure t
+  :bind
+  ([M-tab] . 'sr-speedbar-toggle)
+  )
+
+(use-package ess
+  :mode
+  (("\\.R$" . R-mode))
+  (("\\.r$" . R-mode))
+)
+
+;; Spell check config
+;; (require 'flyspell)
+;; (flyspell-mode +1)
+
+;; (global-set-key (kbd "C-c s") 'flyspell-buffer)
+
+
+
+
+
+
+
+
+
+
+
 
