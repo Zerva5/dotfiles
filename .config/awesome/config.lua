@@ -23,7 +23,7 @@ config.hostname = io.popen("uname -n"):read()
 config.theme = {}
 
 config.theme.path = "/home/lmayall/dotfiles/.config/awesome/"
-config.theme.name = "fog"
+config.theme.name = "subway"
 
 
 config.scripts = "/home/lmayall/dotfiles/Scripts/"
@@ -33,7 +33,8 @@ config.layouts = {
      awful.layout.suit.floating
 }
 
-config.taglist = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"}
+-- config.taglist = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"}
+config.taglist = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"}
 
 config.modkey = "Mod4"
 

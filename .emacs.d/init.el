@@ -41,7 +41,7 @@ There are two things you can do about this warning:
  '(initial-buffer-choice t)
  '(package-selected-packages
    (quote
-    (smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex)))
+    (lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex)))
  '(pixel-scroll-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))

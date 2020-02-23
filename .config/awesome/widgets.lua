@@ -13,5 +13,7 @@ widgets.tasklist = require("widgets.tasklist")
 
 widgets.sideInfo = require("widgets.sideInfo")
 
+widgets.powerMenu = require("widgets.powerMenu")
+
 
 return widgets

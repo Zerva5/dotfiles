@@ -188,10 +188,10 @@ awful.rules.rules = {
   properties = {floating = false},
 
   rule_any = {
-      class = {"firefox", "jetbrains-idea"},
+      class = {"firefox", "jetbrains-idea", "Thunar"},
 
   },
-  properties = {maximized = false, maximized = false, focusable = true},
+  properties = {maximized = false, focusable = true},
 
     --rule_any = {
     --    class = "jetbrains-.*",

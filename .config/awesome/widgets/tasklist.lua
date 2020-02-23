@@ -12,78 +12,93 @@ tasklist.widget_template = {
     {
         {
             {
-                id     = 'clienticon',
-                widget = awful.widget.clienticon,
-                --id = "task_name",
-                --widget = wibox.widget.textbox,
+                -- id     = 'clienticon',
+                -- widget = awful.widget.clienticon,
+                id = "task_name",
+                widget = wibox.widget.textbox,
             },
-            id = "iconBar",
-            bottom = 2,
+            id = "bottomBar",
+            -- margins = 4,
+	    bottom = beautiful.tasklist_bordersize,
+	    -- color = "#ff0000",
+	    -- color = beautiful
+	    
             widget = wibox.container.margin,
 
         },
         layout = wibox.layout.fixed.horizontal
         },
-        left  = 10,
-        right = 10,
+	-- margins = beautiful.tasklist_bordersize,
+	margins = 4,
+	-- color = "#ffffff",
         widget = wibox.container.margin
     },
     widget = wibox.container.background,
 
     create_callback = function(self, c, index, objects)
-        icon = self:get_children_by_id("clienticon")[1]
-        iconBar = self:get_children_by_id("iconBar")[1]
-        icon.client = c
+        -- icon = self:get_children_by_id("clienticon")[1]
+        -- iconBar = self:get_children_by_id("iconBar")[1]
+        -- icon.client = c
 
-        if c == client.focus then
-            iconBar.color = beautiful.black
-            icon.opacity = 1
-        elseif c.minimized == true then
-            icon.opacity = 0.5
-            iconBar.color = beautiful.black .. "55"
-        elseif c ~= client.focus then
-            icon.opacity = 1
-            iconBar.color = beautiful.black .. "55"
-        end
-    --    self:get_children_by_id("task_name")[1].text = c.name
-    --    if c == client.focus then
-    --        self.fg = beautiful.tasklist_fg_focus
-	--    self.bg = beautiful.tasklist_bg_focus
-	--elseif c.minimized == true then
-	--    self.bg = beautiful.tasklist_bg_empty
-	--    self.fg = beautiful.tasklist_fg_empty
-    --    elseif c ~= client.focus then
-    --        self.fg = beautiful.tasklist_fg_normal
-	--    self.bg = beautiful.tasklist_bg_normal
-    --    end
+        -- if c == client.focus then
+            -- iconBar.color = beautiful.black
+            -- icon.opacity = 1
+        -- elseif c.minimized == true then
+            -- icon.opacity = 0.5
+            -- iconBar.color = beautiful.black .. "55"
+        -- elseif c ~= client.focus then
+            -- icon.opacity = 1
+            -- iconBar.color = beautiful.black .. "55"
+        -- end
+       self:get_children_by_id("task_name")[1].text = c.class
+
+       bottomBar = self:get_children_by_id("bottomBar")[1]
+       if c == client.focus then
+           self.fg = beautiful.tasklist_fg_focus
+	   self.bg = beautiful.tasklist_bg_focus
+	   bottomBar.color = beautiful.tasklist_bordercolor_focus
+	elseif c.minimized == true then
+	   self.bg = beautiful.tasklist_bg_empty
+	   self.fg = beautiful.tasklist_fg_empty
+	   bottomBar.color = beautiful.tasklist_bordercolor_empty
+       elseif c ~= client.focus then
+           self.fg = beautiful.tasklist_fg_normal
+	   self.bg = beautiful.tasklist_bg_normal
+	   bottomBar.color = beautiful.tasklist_bordercolor_normal
+       end
     end,
     update_callback = function(self, c, index, objects)
-        icon = self:get_children_by_id("clienticon")[1]
-        iconBar = self:get_children_by_id("iconBar")[1]
-        icon.client = c
+        -- icon = self:get_children_by_id("clienticon")[1]
+        -- iconBar = self:get_children_by_id("iconBar")[1]
+        -- icon.client = c
 
-        if c == client.focus then
-            iconBar.color = beautiful.black
-            icon.opacity = 1
-        elseif c.minimized == true then
-            icon.opacity = 0.2
-            iconBar.color = beautiful.black .. "55"
-        elseif c ~= client.focus then
-            icon.opacity = 1
-            iconBar.color = beautiful.black .. "55"
-        end
-    --    self:get_children_by_id("task_name")[1].text = c.name
-    --
-    --    if c == client.focus then
-    --        self.fg = beautiful.tasklist_fg_focus
-	--    self.bg = beautiful.tasklist_bg_focus
-	--elseif c.minimized == true then
-	--    self.bg = beautiful.tasklist_bg_empty
-	--    self.fg = beautiful.tasklist_fg_empty
-    --    elseif c ~= client.focus then
-    --        self.fg = beautiful.tasklist_fg_normal
-	--    self.bg = beautiful.tasklist_bg_normal
-    --    end
+        -- if c == client.focus then
+            -- iconBar.color = beautiful.black
+            -- icon.opacity = 1
+        -- elseif c.minimized == true then
+            -- icon.opacity = 0.2
+            -- iconBar.color = beautiful.black .. "55"
+        -- elseif c ~= client.focus then
+            -- icon.opacity = 1
+            -- iconBar.color = beautiful.black .. "55"
+        -- end
+       self:get_children_by_id("task_name")[1].text = c.class
+
+       bottomBar = self:get_children_by_id("bottomBar")[1]
+       	
+       if c == client.focus then
+           self.fg = beautiful.tasklist_fg_focus
+	   self.bg = beautiful.tasklist_bg_focus
+	   bottomBar.color = beautiful.tasklist_bordercolor_focus
+	elseif c.minimized == true then
+	   self.bg = beautiful.tasklist_bg_empty
+	   self.fg = beautiful.tasklist_fg_empty
+	   bottomBar.color = beautiful.tasklist_bordercolor_empty
+       elseif c ~= client.focus then
+           self.fg = beautiful.tasklist_fg_normal
+	   self.bg = beautiful.tasklist_bg_normal
+	   bottomBar.color = beautiful.tasklist_bordercolor_normal
+       end
     end,
 }
 

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-xset led 3
-
-emacs --daemon &
-
-
