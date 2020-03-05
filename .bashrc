@@ -10,10 +10,14 @@ PS1='[\u@\h \W]\$ '
 
 alias dots="cd ~/dotfiles"
 
+alias awesome="cd ~/dotfiles/config/awesome"
+
 alias scripts="cd ~/dotfiles/Scripts"
 
-alias school="cd ~/Documents/School/T1Y1"
+alias school="cd ~/Documents/School/T2Y1"
 
 alias qgit="sh ~/dotfiles/Scripts/General/githelp.sh"
+
+alias emacs-reload="systemctl stop --user emacs; systemctl start --user emacs"
 
 alias srecord="sh ~/dotfiles/Scripts/General/wcrecord.sh"

@@ -4,7 +4,7 @@ local wibox = require("../wibox")
 local gears = require("gears")
 local naughty = require("naughty")
 local helpers = require("widgets.helpers")
-local batteryBar = require("widgets.batteryBar")
+-- local batteryBar = require("widgets.batteryBar")
 
 
 sideInfo = {}
@@ -63,7 +63,7 @@ sideInfo.wibox = wibox({
                      sideInfo.mainClock,
                      sideInfo.altClock,
 --                     wibox.widget.seprator,
-                     batteryBar.bat_bar,
+                     -- batteryBar.bat_bar,
                      -- sideInfo.lmHomeOnline,
                      -- sideInfo.volumeDisplay,
                      -- layout = wibox.layout.align.vertical

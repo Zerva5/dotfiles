@@ -26,22 +26,24 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-backends
-   (quote
-    (company-elisp company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
-		   (company-dabbrev-code company-gtags company-etags company-keywords)
-		   company-oddmuse company-dabbrev)))
+        (quote
+         (company-elisp company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
+                        (company-dabbrev-code company-gtags company-etags company-keywords)
+                        company-oddmuse company-dabbrev)))
  '(custom-enabled-themes (quote (doom-one)))
  '(custom-safe-themes
-   (quote
-    ("e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default)))
+        (quote
+         ("e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default)))
  '(display-line-numbers-type (quote relative))
+ '(flycheck-display-errors-delay 0.3)
+ '(flycheck-stylelintrc "~/.stylelintrc.json")
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-echo-area-message "")
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t)
  '(package-selected-packages
-   (quote
-    (lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex)))
+        (quote
+         (lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex)))
  '(pixel-scroll-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -51,6 +53,14 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka" :foundry "CYEL" :slant normal :weight normal :height 143 :width normal)))))
+
+(defun toggle-flyspell-and-eval-buffer() "Toggle flyspell and if disabled, run 'eval-buffer'."
+  (interactive)
+  (if (bound-and-true-p flyspell-mode)
+      (flyspell-mode 0)
+    (flyspell-mode)
+    (flyspell-buffer))
+  )
 
 ;; Use-package install and startup
 
@@ -72,9 +82,9 @@ There are two things you can do about this warning:
   :config
   (define-key org-mode-map (kbd "C-<tab>") nil)
   :bind (
-	 ("C-c l" . org-store-link)
-	 ("C-c a" . org-agenda)	 
-	 )
+         ("C-c l" . org-store-link)
+         ("C-c a" . org-agenda)
+         )
 )
 
 (use-package ivy
@@ -86,8 +96,8 @@ There are two things you can do about this warning:
   :after (ivy)
   :ensure t
   :bind(
-	("C-s" . 'swiper)
-	)
+        ("C-s" . 'swiper)
+        )
   )
 
 (use-package counsel
@@ -100,8 +110,9 @@ There are two things you can do about this warning:
 (use-package treemacs
   :ensure t
   :bind(
-	([C-tab] . 'treemacs)
-	)
+        ([C-tab] . 'treemacs)
+        ("C-c t" . 'treemacs-switch-workspace)
+        )
   )
 
 (use-package company
@@ -123,11 +134,39 @@ There are two things you can do about this warning:
   (company-auctex-init)
   )
 
-(use-package sr-speedbar
-  :ensure t
-  :bind
-  ([M-tab] . 'sr-speedbar-toggle)
-  )
+;; (use-package sr-speedbar
+  ;; :ensure t
+  ;; :bind
+  ;; ([M-tab] . 'sr-speedbar-toggle)
+  ;; )
+;; (use-package lsp-mode
+  ;; :init
+  ;; (setq lsp-prefer-flymake nil)
+  ;; :demand t
+  ;; :after jmi-init-platform-paths)
+(use-package lsp-mode
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  :init (setq lsp-keymap-prefix "C-c j")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (java-mode . lsp)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+(use-package lsp-ui :commands lsp-ui-mode)
+(use-package company-lsp :commands company-lsp)
+
+    ;; if you are ivy user
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+    
+(use-package dap-mode
+  :config
+  (dap-mode t)
+  (dap-ui-mode t))
+
+(use-package lsp-ivy
+  :after lsp-mode)
 
 (use-package ess
   :mode
@@ -138,7 +177,7 @@ There are two things you can do about this warning:
 (use-package rainbow-delimiters
   :ensure t
   :config
-  (rainbow-delimiters-mode)
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   )
 
 (use-package smooth-scroll
@@ -146,9 +185,33 @@ There are two things you can do about this warning:
   (smooth-scroll-mode 1)
   (setq smooth-scroll/vscroll-step-size 5)
   )
+
+(use-package flyspell
+  :ensure t
+  :bind
+  ("C-c s" . toggle-flyspell-and-eval-buffer)
+  )
+
+(use-package flycheck
+  :defer 2
+  :diminish
+  :init (global-flycheck-mode)
+  :custom
+  (flycheck-display-errors-delay .3)
+  (flycheck-stylelintrc "~/.stylelintrc.json")
+  )
+
+
 ;; Non-package config
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+
+(global-set-key (kbd "C-c e") 'eval-buffer)
+
+;; Make emacs use 4 spaces instead of tabs
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
 
 ;; Spell check config
 ;; (require 'flyspell)
