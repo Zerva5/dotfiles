@@ -2,13 +2,14 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
 
+-- local deviceConfig = require("deviceConfig")
+
 local config = {}
 
 config.desktop_hostname = "LMDESK"
 config.laptop_hostname = "LMTHINK"
 
 config.hostname = io.popen("uname -n"):read()
-
 
     if config.hostname == config.desktop_hostname then
         config.device = "Desktop"
@@ -23,7 +24,7 @@ config.hostname = io.popen("uname -n"):read()
 config.theme = {}
 
 config.theme.path = "/home/lmayall/dotfiles/.config/awesome/"
-config.theme.name = "subway"
+config.theme.name = "space"
 
 
 config.scripts = "/home/lmayall/dotfiles/Scripts/"
@@ -47,6 +48,7 @@ config.apps.image_editor = "gimp"
 config.apps.raw_editor = "darktable"
 config.apps.launcher = "rofi -show run"
 
+config.batteryIcon = {"", "", "", "", ""}
 
 
 

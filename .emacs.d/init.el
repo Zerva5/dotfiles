@@ -26,14 +26,14 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-backends
-        (quote
-         (company-elisp company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
-                        (company-dabbrev-code company-gtags company-etags company-keywords)
-                        company-oddmuse company-dabbrev)))
+   (quote
+    (company-elisp company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
+                   (company-dabbrev-code company-gtags company-etags company-keywords)
+                   company-oddmuse company-dabbrev)))
  '(custom-enabled-themes (quote (doom-one)))
  '(custom-safe-themes
-        (quote
-         ("e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default)))
+   (quote
+    ("e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default)))
  '(display-line-numbers-type (quote relative))
  '(flycheck-display-errors-delay 0.3)
  '(flycheck-stylelintrc "~/.stylelintrc.json")
@@ -42,8 +42,8 @@ There are two things you can do about this warning:
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t)
  '(package-selected-packages
-        (quote
-         (lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex)))
+   (quote
+    (lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex)))
  '(pixel-scroll-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -134,40 +134,6 @@ There are two things you can do about this warning:
   (company-auctex-init)
   )
 
-;; (use-package sr-speedbar
-  ;; :ensure t
-  ;; :bind
-  ;; ([M-tab] . 'sr-speedbar-toggle)
-  ;; )
-;; (use-package lsp-mode
-  ;; :init
-  ;; (setq lsp-prefer-flymake nil)
-  ;; :demand t
-  ;; :after jmi-init-platform-paths)
-(use-package lsp-mode
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  :init (setq lsp-keymap-prefix "C-c j")
-  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (java-mode . lsp)
-         ;; if you want which-key integration
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
-
-(use-package lsp-ui :commands lsp-ui-mode)
-(use-package company-lsp :commands company-lsp)
-
-    ;; if you are ivy user
-(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-    
-(use-package dap-mode
-  :config
-  (dap-mode t)
-  (dap-ui-mode t))
-
-(use-package lsp-ivy
-  :after lsp-mode)
-
 (use-package ess
   :mode
   (("\\.R$" . R-mode))
@@ -192,13 +158,30 @@ There are two things you can do about this warning:
   ("C-c s" . toggle-flyspell-and-eval-buffer)
   )
 
-(use-package flycheck
-  :defer 2
-  :diminish
-  :init (global-flycheck-mode)
-  :custom
-  (flycheck-display-errors-delay .3)
-  (flycheck-stylelintrc "~/.stylelintrc.json")
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable))
+
+(use-package lsp-mode
+  :ensure t
+  )
+  
+
+(use-package lsp-java
+  :ensure t
+  :after lsp-mode
+  :config
+  (add-hook 'java-mode-hook' #'lsp)
+  )
+
+(use-package lsp-ui
+  :ensure t
+  )
+
+(use-package company-lsp
+  :ensure t
   )
 
 

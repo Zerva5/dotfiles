@@ -46,10 +46,10 @@ sideInfo.lmHomeOnline = wibox.widget{
 }
 
 sideInfo.wibox = wibox({
-            x = 0,
-            y = 0,
-            width = awful.screen.focused().geometry.width / 6,
-            height = awful.screen.focused().geometry.height,
+            x = 20,
+            y = 20,
+            width = (awful.screen.focused().geometry.width / 6) - 40,
+            height = awful.screen.focused().geometry.height - 40,
             ontop = true,
             visible = false,
 

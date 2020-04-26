@@ -29,6 +29,8 @@ keybinds.keyboard.global = gears.table.join(
 	 local screen = awful.screen.focused()
 	 local screenID = screen.index
 
+     -- naughty.notify({text=tostring(screenID)})
+
 	 awful.spawn.with_shell("sh /home/lmayall/dotfiles/Scripts/screenshot.sh " .. screenID)
    end),
 
@@ -55,7 +57,6 @@ keybinds.keyboard.global = gears.table.join(
    awful.key({ config.modkey, "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end),
    awful.key({ config.modkey, "Shift"   }, "j", function () awful.client.swap.byidx( -1)    end),
 
-
    awful.key({config.modkey}, ".", awful.tag.viewnext),
    awful.key({config.modkey}, ",", awful.tag.viewprev),
 
@@ -68,6 +69,7 @@ keybinds.keyboard.global = gears.table.join(
 
    awful.key({}, "XF86MonBrightnessUp", function() widgets.brightness_popup:brightness_up() end),
    awful.key({}, "XF86MonBrightnessDown", function() widgets.brightness_popup:brightness_down() end),
+   
    awful.key({config.modkey}, "b", function() widgets.brightness_popup:brightness_up() end),
    awful.key({config.modkey, "Shift"}, "b", function() widgets.brightness_popup:brightness_down() end),
 
@@ -75,27 +77,27 @@ keybinds.keyboard.global = gears.table.join(
    awful.key({}, "XF86AudioPrev", function() awful.spawn.with_shell("playerctl previous") end),
    awful.key({}, "XF86AudioPlay", function() awful.spawn.with_shell("playerctl play-pause") end),
 
-   awful.key({config.modkey}, "c", function() naughty.notify({text = "This is a test", title = "Test"})end),
+   -- awful.key({config.modkey}, "c", function() naughty.notify({text = "This is a test", title = "Test"})end),
 
    awful.key({ config.modkey, "Shift" }, ",", function ()
-	 if client.focus then
+         if client.focus then
             local tagIndex = (client.focus.first_tag.index - 2) % 10 + 1
             local tag = client.focus.screen.tags[tagIndex]
             if tag then
-	       client.focus:move_to_tag(tag)
-	       awful.tag.viewprev()
+               client.focus:move_to_tag(tag)
+               awful.tag.viewprev()
             end
-	 end
+         end
    end),
    awful.key({ config.modkey, "Shift" }, ".", function ()
-	 if client.focus then
+         if client.focus then
             local tagIndex = (client.focus.first_tag.index) % 10 + 1
             local tag = client.focus.screen.tags[tagIndex]
             if tag then
-	       client.focus:move_to_tag(tag)
-	       awful.tag.viewnext()
+               client.focus:move_to_tag(tag)
+               awful.tag.viewnext()
             end
-	 end
+         end
    end),
 
    awful.key({config.modkey, "Shift"}, "k", function ()
@@ -107,6 +109,8 @@ keybinds.keyboard.global = gears.table.join(
 	    )
 	 end
    end)
+
+   -- awful.key(config.modkey, )
    --awful.key({config.modkey}, ),
 )
 

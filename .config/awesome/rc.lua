@@ -31,6 +31,12 @@ local keybinds = require("keybinds")
 
 local config_path = "/home/lmayall/dotfiles/awesome"
 
+do
+   awesome.register_xproperty("WM_NAME", "string")
+   widgets.volume_popup.popup:set_xproperty("WM_NAME", "a_volumePopup")
+end
+
+
 
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
@@ -61,6 +67,8 @@ do
                  
     awful.screen.connect_for_each_screen(function (s)
 
+
+
         functions.set_wallpaper(s)
         
         awful.tag(config.taglist, s, config.layouts[1])
@@ -70,46 +78,114 @@ do
 
         s.mytasklist = widgets.tasklist.create(s)
 
-        -- Create the wibox
-        s.mywibox = awful.wibar({ position = beautiful.bar_position, screen = s, width = beautiful.bar_width, height = beautiful.bar_height})
+        s.rightmenu = wibox{ -- Right widgets
+           x = s.geometry.x + ((s.geometry.width * 5) / 6) - 150,
+           y = 10,
+           width = 150,
+           height = 30,
+           visible = true,
 
-        -- Add widgets to the wibox
-        s.mywibox:setup {
-            layout = wibox.layout.align.horizontal,
-            expand = "none",
-            { -- Left widgets
-                {
-                    {
-                        layout = wibox.layout.fixed.horizontal,
-                        s.mytaglist,
-                    },
-                    widget = wibox.container.margin,
-                    margins = beautiful.taglist_bordersize,
-                    color = beautiful.fg_normal
-                },
-                layout = wibox.layout.fixed.horizontal
-            },
-            {
-                layout = wibox.layout.fixed.horizontal,
-                s.mytasklist, -- Middle widget
+           widget = wibox.widget{
+              {
+                 {
+                 {
+                    wibox.widget.systray(),
+                    widgets.sysclock,
+                    
+                    layout = wibox.layout.align.horizontal,
+                    spacing = beautiful.rightmenu_spacing,
+                 },
+                 layout = wibox.container.place,
+                 halign = "center",
+                 },
+                 layout = wibox.container.margin,
+                 left = beautiful.rightmenu_margin,
+                 right = beautiful.rightmenu_margin,
 
-
-            },
-            { -- Right widgets
-                {
-                    {
-                        layout = wibox.layout.fixed.horizontal,
-                        spacing = beautiful.rightmenu_spacing,
-                        wibox.widget.systray(),
-                        widgets.sysclock,
-                    },
-                    widget = wibox.container.margin,
-                    margins = beautiful.rightmenu_bordersize,
-                    color = beautiful.rightmenu_border
-                },
-                layout = wibox.layout.fixed.horizontal,
-            },
+              },
+              layout = wibox.container.background,
+              shape = gears.shape.rounded_bar,
+              bg = beautiful.rightmenu_bg,
+           },
         }
+
+        -- Create the wibox
+
+        -- -- Add widgets to the wibox
+        -- s.mywibox:setup {
+        --    layout = wibox.container.background,
+        --    bg = "#222222",
+        --    -- top = 10,
+        --    -- bottom = 10,
+        --    -- visible = false,
+        --    {
+        --     layout = wibox.layout.align.horizontal,
+        --     expand = "none",
+        --     -- { -- Left widgets
+        --     --     {
+        --     --         {
+        --     --             layout = wibox.layout.fixed.horizontal,
+        --     --             s.mytaglist,
+        --     --         },
+        --     --         widget = wibox.container.margin,
+        --     --         margins = beautiful.taglist_bordersize,
+        --     --         color = beautiful.fg_normal
+        --     --     },
+        --     --     layout = wibox.layout.fixed.horizontal
+        --     -- },
+            
+        --     -- {
+        --     --     layout = wibox.layout.fixed.horizontal,
+        --     --     s.mytasklist, -- Middle widget
+
+
+        --     -- },
+            
+        --     { -- Right widgets
+        --        {
+        --           {
+        --              {
+        --                 wibox.widget.systray(),
+        --                 widgets.sysclock,
+                        
+        --                 layout = wibox.layout.align.horizontal,
+        --                 spacing = beautiful.rightmenu_spacing
+                       
+        --              },
+        --           layout = wibox.container.margin,
+        --           left = beautiful.rightmenu_margin,
+        --           right = beautiful.rightmenu_margin,
+
+        --        },
+        --        widget = wibox.container.background,
+        --        shape = gears.shape.rounded_bar,
+        --        bg = beautiful.rightmenu_bg,
+        --        },
+        --        layout = wibox.layout.align.horizontal
+        --     -- },
+               
+        --        -- {
+        --        --    {
+        --        --       {
+        --        --          layout = wibox.layout.align.horizontal,
+        --        --          spacing = beautiful.rightmenu_spacing,
+        --        --          wibox.widget.systray(),
+        --        --          widgets.sysclock,
+        --        --       },
+        --        --       widget = wibox.container.margin,
+        --        --       margins = beautiful.rightmenu_bordersize,
+        --        --       left = 10,
+        --        --       right = 10,
+        --        --       color = "#222222",
+        --        --    },
+        --        --    layout = wibox.container.background,
+        --        --    shape = gears.shape.rounded_bar,
+        --        --    bg = beautiful.rightmenu_bg,
+        --        -- },
+        --        -- layout = wibox.layout.align.horizontal,
+        --     },
+        --    },
+        -- }
 
         -- body
     end)
@@ -188,7 +264,7 @@ awful.rules.rules = {
   properties = {floating = false},
 
   rule_any = {
-      class = {"firefox", "jetbrains-idea", "Thunar"},
+      class = {"firefox", "jetbrains-idea", "Thunar", "RStudio"},
 
   },
   properties = {maximized = false, focusable = true},
@@ -217,17 +293,25 @@ awful.rules.rules = {
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
-	c.shape = gears.shape.rect
--- Set the windows at the slave,
--- i.e. put it at the end of others instead of setting it master.
--- if not awesome.startup then awful.client.setslave(c) end
+                         -- for k,v in pairs(c:struts()) do
+                         --    naughty.notify({text=tostring(k)})
+                         -- end
 
-if awesome.startup
-  and not c.size_hints.user_position
-  and not c.size_hints.program_position then
-    -- Prevent clients from being unreachable after screen count changes.
-    awful.placement.no_offscreen(c)
-end
+                         c:struts({top = 40})
+                         -- Changing client workarea.
+                        
+                         c.shape = gears.shape.rectangle
+                         -- c.shape = gears.shape.rounded_rect
+                         -- Set the windows at the slave,
+                         -- i.e. put it at the end of others instead of setting it master.
+                         -- if not awesome.startup then awful.client.setslave(c) end
+
+                         if awesome.startup
+                            and not c.size_hints.user_position
+                         and not c.size_hints.program_position then
+                            -- Prevent clients from being unreachable after screen count changes.
+                            awful.placement.no_offscreen(c)
+                         end
 end)
 
 

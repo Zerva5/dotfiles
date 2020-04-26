@@ -14,3 +14,9 @@
 * config
 ** dotfiles
  - path :: ~/dotfiles
+* Projects
+** Projects
+ - path :: ~/Documents/Projects
+* WCL
+** Tools
+ - path :: ~/Documents/WCL/Tools

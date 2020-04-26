@@ -21,24 +21,44 @@
 			<location>/home/lmayall/Documents/School/T2Y1/CSC115/Assignments/07/A7Tester.java</location>
 		</link>
 		<link>
+			<name>src/CalculatorException.java</name>
+			<type>1</type>
+			<location>//home/lmayall/Documents/School/T2Y1/CSC115/Assignments/07/CalculatorException.java</location>
+		</link>
+		<link>
 			<name>src/Exercise1.java</name>
 			<type>1</type>
-			<location>//home/lmayall/Documents/School/T2Y1/CSC115/Labs/07/P1/Exercise1.java</location>
+			<location>/home/lmayall/Documents/School/T2Y1/CSC115/Labs/07/P1/Exercise1.java</location>
 		</link>
 		<link>
 			<name>src/Exercise2.java</name>
 			<type>1</type>
-			<location>//home/lmayall/Documents/School/T2Y1/CSC115/Labs/07/P1/Exercise2.java</location>
+			<location>/home/lmayall/Documents/School/T2Y1/CSC115/Labs/07/P1/Exercise2.java</location>
+		</link>
+		<link>
+			<name>src/RPNCalculator.java</name>
+			<type>1</type>
+			<location>/home/lmayall/Documents/School/T2Y1/CSC115/Assignments/07/RPNCalculator.java</location>
+		</link>
+		<link>
+			<name>src/RefBasedBinaryTree.java</name>
+			<type>1</type>
+			<location>/home/lmayall/Documents/School/T2Y1/CSC115/Labs/08/RefBasedBinaryTree.java</location>
 		</link>
 		<link>
 			<name>src/Stack.java</name>
 			<type>1</type>
-			<location>//home/lmayall/Documents/School/T2Y1/CSC115/Labs/07/P2/Stack.java</location>
+			<location>/home/lmayall/Documents/School/T2Y1/CSC115/Labs/07/P2/Stack.java</location>
 		</link>
 		<link>
 			<name>src/StackArrayBased.java</name>
 			<type>1</type>
-			<location>//home/lmayall/Documents/School/T2Y1/CSC115/Labs/07/P2/StackArrayBased.java</location>
+			<location>/home/lmayall/Documents/School/T2Y1/CSC115/Labs/07/P2/StackArrayBased.java</location>
+		</link>
+		<link>
+			<name>src/TreeNode.java</name>
+			<type>1</type>
+			<location>/home/lmayall/Documents/School/T2Y1/CSC115/Labs/08/TreeNode.java</location>
 		</link>
 	</linkedResources>
 </projectDescription>

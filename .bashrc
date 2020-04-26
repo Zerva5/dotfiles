@@ -21,3 +21,7 @@ alias qgit="sh ~/dotfiles/Scripts/General/githelp.sh"
 alias emacs-reload="systemctl stop --user emacs; systemctl start --user emacs"
 
 alias srecord="sh ~/dotfiles/Scripts/General/wcrecord.sh"
+
+alias mounthome="sudo mount -t nfs 206.87.86.221:/home/lmayall/storage /home/lmayall/Network/lmhome"
+
+alias keylight="xset led 3"
