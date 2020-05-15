@@ -2,6 +2,7 @@ local awful = require("../awful")
 local beautiful = require("../beautiful")
 local wibox = require("../wibox")
 local gears = require("gears")
+local config = require("config")
 
 
 volume_popup = {
@@ -13,8 +14,8 @@ volume_popup = {
 				max_value = 1,
 				value = 0,
 				shape = gears.shape.rectangle,
-				forced_height = 15,
-				forced_width = 100,
+				forced_height = 15 * config.scaling,
+				forced_width = 100 * config.scaling,
 				color = beautiful.volume_bar_fg,
 				background_color = beautiful.volume_bar_bg,
 				widget = wibox.widget.progressbar
@@ -24,7 +25,7 @@ volume_popup = {
 
 		},
 		placement = function(c)
-			awful.placement.top_right(c, {margins = beautiful.volume_bar_margin})		
+			awful.placement.top_right(c, {margins = beautiful.volume_bar_margin * config.scaling})		
 		end,
 		ontop = true,
 		visible = false,

@@ -5,7 +5,7 @@ local gears = require("gears")
 local naughty = require("naughty")
 local helpers = require("widgets.helpers")
 -- local batteryBar = require("widgets.batteryBar")
-
+local config = require("config")
 
 sideInfo = {}
 
@@ -19,7 +19,7 @@ sideInfo.mainClock = wibox.widget{
    widget = wibox.widget.textclock,
    format = "%H:%M",
    refresh = 1,
-   font = beautiful.fontname .. " Bold" .. " 40",
+   -- font = beautiful.fontname .. " Bold" .. " 40",
    align = "center"
 }
 
@@ -46,10 +46,10 @@ sideInfo.lmHomeOnline = wibox.widget{
 }
 
 sideInfo.wibox = wibox({
-            x = 20,
-            y = 20,
-            width = (awful.screen.focused().geometry.width / 6) - 40,
-            height = awful.screen.focused().geometry.height - 40,
+            x = 20 * config.scaling,
+            y = 20 * config.scaling,
+            width = (awful.screen.focused().geometry.width / 6) - (40 * config.scaling),
+            height = awful.screen.focused().geometry.height - (40 * config.scaling),
             ontop = true,
             visible = false,
 

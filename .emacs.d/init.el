@@ -43,7 +43,7 @@ There are two things you can do about this warning:
  '(initial-buffer-choice t)
  '(package-selected-packages
    (quote
-    (lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex)))
+    (company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex)))
  '(pixel-scroll-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))

@@ -9,17 +9,22 @@ local config = {}
 config.desktop_hostname = "LMDESK"
 config.laptop_hostname = "LMTHINK"
 
+config.scaling = 1
+
 config.hostname = io.popen("uname -n"):read()
 
     if config.hostname == config.desktop_hostname then
         config.device = "Desktop"
+        config.scaling = 1
     else
         config.device = "Laptop"
+        config.scaling = 2
     end
 
 
 --
 --end
+
 
 config.theme = {}
 

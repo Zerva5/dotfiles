@@ -3,6 +3,7 @@ local beautiful = require("../beautiful")
 local wibox = require("../wibox")
 local gears = require("gears")
 local naughty = require("naughty")
+local config = require("config")
 -- local root = require("root")
 
 powerMenu = {}
@@ -31,10 +32,10 @@ powerMenu.restart = wibox.widget{
 powerMenu.wibox = wibox({
             -- width = awful.screen.focused().geometry.width / 6,
             -- height = awful.screen.focused().geometry.height,
-	    width = 400,
-            height = 40,
-	    x = (awful.screen.focused().geometry.width / 2) - 200,
-            y = (awful.screen.focused().geometry.height / 2) - 20,
+	    width = 400 * config.scaling,
+            height = 40 * config.scaling,
+	    x = (awful.screen.focused().geometry.width / 2) - (200 * config.scaling),
+            y = (awful.screen.focused().geometry.height / 2) - (20 * config.scaling),
             ontop = true,
             visible = false,
 

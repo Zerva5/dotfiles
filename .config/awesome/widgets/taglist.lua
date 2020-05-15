@@ -3,6 +3,7 @@ local beautiful = require("beautiful")
 local wibox = require("wibox")
 local gears = require("gears")
 local functions = require("functions")
+local config = require("config")
 
 local taglist = {}
 
@@ -36,10 +37,10 @@ taglist.widget_template = {
     	    self.fg = beautiful.taglist_fg_normal
         end
 
-        if t == awful.screen.focused().selected_tag or t == functions.getOtherScreen().selected_tag then
-    	    self.bg = beautiful.taglist_bg_focus
-    	    self.fg = beautiful.taglist_fg_focus
-        end
+        -- if t == awful.screen.focused().selected_tag or t == functions.getOtherScreen().selected_tag then
+    	--     self.bg = beautiful.taglist_bg_focus
+    	--     self.fg = beautiful.taglist_fg_focus
+        -- end
     end,
 
     update_callback = function(self, t, index, objects)
@@ -52,10 +53,10 @@ taglist.widget_template = {
             self.fg = beautiful.taglist_fg_normal
         end
 
-        if t == awful.screen.focused().selected_tag or t == functions.getOtherScreen().selected_tag then
-           self.bg = beautiful.taglist_bg_focus
-           self.fg = beautiful.taglist_fg_focus
-        end
+        -- if t == awful.screen.focused().selected_tag or t == functions.getOtherScreen().selected_tag then
+        --    self.bg = beautiful.taglist_bg_focus
+        --    self.fg = beautiful.taglist_fg_focus
+        -- end
 
     end
 }
@@ -95,10 +96,10 @@ taglist.create = function(s)
       visible = true,
       -- ontop = true,
       x = s.geometry.x + s.geometry.width / 6,
-      y = 10,
-      width = 288,
+      y = 10 * config.scaling,
+      width = 288 * config.scaling,
       -- Each item is 20 wide, spacing of 8px and 8px of padding.
-      height = 30,
+      height = 30 * config.scaling,
 
 
 
@@ -107,8 +108,8 @@ taglist.create = function(s)
          -- bg = "#ffffff",
          {
          layout = wibox.container.margin,
-         left = 8,
-         right = 8,
+         left = 8 * config.scaling,
+         right = 8 * config.scaling,
          {
          widget = awful.widget.taglist {
             screen  = s,

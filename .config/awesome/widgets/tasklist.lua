@@ -3,6 +3,7 @@ local beautiful = require("beautiful")
 local wibox = require("wibox")
 local gears = require("gears")
 local naughty = require("naughty")
+local config = require("config")
 
 local tasklist = {}
 
@@ -107,20 +108,20 @@ tasklist.create = function(s)
    return wibox{
       visible = true,
       -- ontop = true,
-      width = 400,
-      x = s.geometry.x + (s.geometry.width / 2) - 200,
-      y = 10,
+      width = 600 * config.scaling,
+      x = s.geometry.x + (s.geometry.width / 2) - (300 * config.scaling),
+      y = 10 * config.scaling,
 
       -- Each item is 20 wide, spacing of 8px and 8px of padding.
-      height = 30,
+      height = 30 * config.scaling,
 
       widget = wibox.widget{
          layout = wibox.container.background,
          -- bg = "#ffffff",
          {
             layout = wibox.container.margin,
-            left = 8,
-            right = 8,
+            left = 8 * config.scaling,
+            right = 8 * config.scaling,
             {
                layout = wibox.container.place,
                halign = "center",

@@ -1,7 +1,7 @@
 ---------------------------
 -- Default awesome theme --
 ---------------------------
-
+    
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -19,6 +19,8 @@ theme.fontweight = "Normal"
 theme.iconFont = "FontAwesome5Free-Regular"
 theme.iconSize = "12"
 theme.iconWeight = "Solid"
+
+theme.scaling = 2
 
 theme.white = "#aaaaaa"
 theme.black = "#18222e"
@@ -50,14 +52,14 @@ theme.fg_minimize   = theme.white
 
 theme.useless_gap   = dpi(4)
 
-theme.border_width  = dpi(0)
+theme.border_width  = dpi(4)
 theme.border_normal = "#00000000"
-theme.border_focus  = "#d82d5100"
+theme.border_focus  = "#d82d51"
 theme.border_marked = "#ecccbc00"
 
 theme.bar_position = "top"
-theme.bar_width = 1200
-theme.bar_height = 40
+theme.bar_width = 1200 * theme.scaling
+theme.bar_height = 80  * theme.scaling
 -- theme.wibar_border_width = 20
 --theme.wibar_border_color = "#ffffff00"
 
@@ -71,9 +73,9 @@ theme.taglist_fg_normal = theme.white
 theme.taglist_fg_empty = "#484f55"
 
 theme.taglist_bordercolor =  "#c1c8b6"
-theme.taglist_bordersize = 0
-theme.taglist_spacing = 8
-theme.taglist_margin = 5
+theme.taglist_bordersize = 0  * theme.scaling
+theme.taglist_spacing = 8  * theme.scaling
+theme.taglist_margin = 5 * theme.scaling
 
 theme.taglist_bg = theme.bg
 
@@ -90,30 +92,30 @@ theme.tasklist_fg_normal = theme.white
 theme.tasklist_bordercolor_focus = theme.color
 theme.tasklist_bordercolor_empty = "#333333"
 theme.tasklist_bordercolor_normal = "#333333"
-theme.tasklist_bordersize = 0
-theme.tasklist_spacing = 10
-theme.tasklist_margin = 40
+theme.tasklist_bordersize = 0  * theme.scaling
+theme.tasklist_spacing = 10  * theme.scaling
+theme.tasklist_margin = 40  * theme.scaling
 
 -- End of unused
 
 theme.rightmenu_fg = theme.color
 theme.rightmenu_bg = theme.bg
 theme.rightmenu_border = ""
-theme.rightmenu_bordersize = 0
-theme.rightmenu_margin = 20
-theme.rightmenu_spacing = 40
+theme.rightmenu_bordersize = 0  * theme.scaling
+theme.rightmenu_margin = 20  * theme.scaling
+theme.rightmenu_spacing = 40  * theme.scaling
 
 theme.notification_bg = theme.dark
 
 theme.volume_bar_bg = theme.dark .. theme.lowOpacity
 theme.volume_bar_fg = "#fc3948"
 -- theme.volume_bar_fg = theme.color
-theme.volume_bar_margin = 20
+theme.volume_bar_margin = 20  * theme.scaling
 theme.volume_bar_mute = "#fc394888"
 
 theme.brightness_bar_bg = theme.dark .. theme.lowOpacity
 theme.brightness_bar_fg = "#1af2fe88"
-theme.brightness_bar_margin = 20
+theme.brightness_bar_margin = 20  * theme.scaling
 
 theme.SIcpuUsage_bg = "#000000ff"
 theme.SIcpuUsage_fg_normal = theme.white
@@ -160,7 +162,7 @@ theme.notification_fg = theme.white
 -- notification_[border_color|border_width|shape|opacity]
 theme.notification_border_width = 0
 theme.notification_border_color = ""
-theme.notification_margin = 50
+theme.notification_margin = 50  * theme.scaling
 -- theme.notification_width = 6
 
 -- Variables set for theming the menu:

@@ -15,8 +15,8 @@ brightness_popup = {
 				max_value = 1,
 				value = 0,
 				shape = gears.shape.rectangle,
-				forced_height = 15,
-				forced_width = 100,
+				forced_height = 15 * config.scaling,
+				forced_width = 100 * config.scaling,
 				color = beautiful.brightness_bar_fg,
 				background_color = beautiful.brightness_bar_bg,
 				widget = wibox.widget.progressbar
@@ -26,7 +26,7 @@ brightness_popup = {
 
 		},
 		placement = function(c)
-			awful.placement.top_right(c, {margins = beautiful.brightness_bar_margin})		
+			awful.placement.top_right(c, {margins = beautiful.brightness_bar_margin * config.scaling})		
 		end,
 		ontop = true,
 		visible = false,
@@ -44,7 +44,7 @@ brightness_popup = {
 
 function brightness_popup:brightness_down()
 	if config.device == "Laptop" then
-		awful.spawn.easy_async_with_shell("xbacklight -dec 10 -time 100 -steps 10 && xbacklight", function(out)
+		awful.spawn.easy_async_with_shell("light -U 10 && light", function(out)
 			self.popup.widget.bar.value = out / 100
 			if self.timer.started == true then
 				self.timer:again()
@@ -71,7 +71,7 @@ end
 
 function brightness_popup:brightness_up()
 	if config.device == "Laptop" then
-		awful.spawn.easy_async_with_shell("xbacklight -inc 10 -time 100 -steps 10 && xbacklight", function(out)
+		awful.spawn.easy_async_with_shell("light -A 10 && light", function(out)
 			self.popup.widget.bar.value = out / 100
 			if self.timer.started == true then
 				self.timer:again()
