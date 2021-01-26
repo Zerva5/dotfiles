@@ -5,33 +5,33 @@ local naughty = require("naughty")
 
 
 local config = require("config")
-local widgets = require("widgets")
+local volume_popup = require("volume_popup")
 
 local keybinds = {}
-
+--
 keybinds.keyboard = {}
 
 keybinds.mouse = {}
-
+--
 keybinds.keyboard.global = gears.table.join(
 
    -- awful.key({config.modkey}, "q", function() awesome.quit() end),
 
-   awful.key({config.modkey, "Shift"}, "p", function()widgets.powerMenu:off()end),
-   awful.key({config.modkey, "Shift"}, "r", function()widgets.powerMenu:restart()end),
-   awful.key({config.modkey, "Shift"}, "l", function()widgets.powerMenu:logout()end),
+   --awful.key({config.modkey, "Shift"}, "p", function()widgets.powerMenu:off()end),
+   --awful.key({config.modkey, "Shift"}, "r", function()widgets.powerMenu:restart()end),
+   --awful.key({config.modkey, "Shift"}, "l", function()widgets.powerMenu:logout()end),
+   --
+   --awful.key({config.modkey}, "p", function()
+	-- widgets.powerMenu:toggleVisible()
+   --end),
 
-   awful.key({config.modkey}, "p", function()
-	 widgets.powerMenu:toggleVisible()
-   end),
-      
    awful.key({}, "Print", function()
 	 local screen = awful.screen.focused()
 	 local screenID = screen.index
 
      -- naughty.notify({text=tostring(screenID)})
 
-	 awful.spawn.with_shell("sh /home/lmayall/dotfiles/Scripts/screenshot.sh " .. screenID)
+	 --awful.spawn.with_shell("sh /home/lmayall/dotfiles/Scripts/screenshot.sh " .. screenID)
    end),
 
    awful.key({ config.modkey, "Shift"   }, "n",     function () awful.tag.incnmaster(-1, nil, true) end),
@@ -40,15 +40,15 @@ keybinds.keyboard.global = gears.table.join(
    awful.key({ config.modkey, "Control" }, "m",     function () awful.tag.incncol( 1, nil, true)    end),
    awful.key({ config.modkey, "Control" }, "n",     function () awful.tag.incncol(-1, nil, true)    end),
 
-   awful.key({ config.modkey}, "`", function() widgets.sideInfo:toggleVisible() end),
+   --awful.key({ config.modkey}, "`", function() widgets.sideInfo:toggleVisible() end),
 
    awful.key({ config.modkey, "Control" }, "r", awesome.restart),
 
    awful.key({config.modkey}, "Return", function() awful.spawn(config.apps.terminal) end),
-   awful.key({config.modkey}, "n", function() awful.spawn("emacsclient -c -n")end),
+   awful.key({config.modkey}, "n", function() awful.spawn("emacsclient m-c -n")end),
    awful.key({config.modkey}, "w", function() awful.spawn("firefox")end),
    awful.key({config.modkey}, "t", function() awful.spawn("thunar")end),
-   
+
    awful.key({config.modkey}, "d", function() awful.spawn.with_shell("rofi -show run &") end),
 
    awful.key({config.modkey}, "l", function() awful.client.focus.byidx(1) end),
@@ -61,17 +61,17 @@ keybinds.keyboard.global = gears.table.join(
    awful.key({config.modkey}, ",", awful.tag.viewprev),
 
    awful.key({config.modkey}, "s", function() awful.screen.focus_relative (1) end),
-
-   awful.key({}, "XF86AudioRaiseVolume", function() widgets.volume_popup:volume_up() end),
-   awful.key({}, "XF86AudioLowerVolume", function() widgets.volume_popup:volume_down() end),
-   awful.key({}, "XF86AudioMute", function() widgets.volume_popup:mute() end),
-   awful.key({}, "XF86AudioStop", function () widgets.volume_popup:mute() end),
-
-   awful.key({}, "XF86MonBrightnessUp", function() widgets.brightness_popup:brightness_up() end),
-   awful.key({}, "XF86MonBrightnessDown", function() widgets.brightness_popup:brightness_down() end),
+   --
+   awful.key({}, "XF86AudioRaiseVolume", function() volume_popup:volume_up() end),
+   awful.key({}, "XF86AudioLowerVolume", function() volume_popup:volume_down() end),
+   awful.key({}, "XF86AudioMute", function() volume_popup:mute() end),
+   awful.key({}, "XF86AudioStop", function () volume_popup:mute() end),
    
-   awful.key({config.modkey}, "b", function() widgets.brightness_popup:brightness_up() end),
-   awful.key({config.modkey, "Shift"}, "b", function() widgets.brightness_popup:brightness_down() end),
+   --awful.key({}, "XF86MonBrightnessUp", function() widgets.brightness_popup:brightness_up() end),
+   --awful.key({}, "XF86MonBrightnessDown", function() widgets.brightness_popup:brightness_down() end),
+   --
+   --awful.key({config.modkey}, "b", function() widgets.brightness_popup:brightness_up() end),
+   --awful.key({config.modkey, "Shift"}, "b", function() widgets.brightness_popup:brightness_down() end),
 
    awful.key({}, "XF86AudioNext", function() awful.spawn.with_shell("playerctl next") end),
    awful.key({}, "XF86AudioPrev", function() awful.spawn.with_shell("playerctl previous") end),
@@ -113,8 +113,8 @@ keybinds.keyboard.global = gears.table.join(
    -- awful.key(config.modkey, )
    --awful.key({config.modkey}, ),
 )
-
-for i = 1, 10 do
+--
+for i = 1, 7 do
    keybinds.keyboard.global = gears.table.join(keybinds.keyboard.global,
 					       -- View tag only.
 					       awful.key({ config.modkey }, "#" .. i + 9,
@@ -144,7 +144,7 @@ end
 keybinds.keyboard.client = gears.table.join(
    awful.key({config.modkey}, "q", function(c) c:kill() end),
 
-   awful.key({}, "F11", function(c) 
+   awful.key({}, "F11", function(c)
 	 c.fullscreen = not c.fullscreen
 	 c:raise()
    end),
@@ -157,7 +157,7 @@ keybinds.keyboard.client = gears.table.join(
 	 c.maximized_horizontal = not c.maximized_horizontal
 	 c.maximized_vertical   = not c.maximized_vertical end),
 
-   awful.key({ config.modkey, "Shift" }, "s", function(c) 
+   awful.key({ config.modkey, "Shift" }, "s", function(c)
 	 local oldtag = c.first_tag.index
 
 	 c:move_to_screen ()
@@ -172,6 +172,7 @@ keybinds.keyboard.client = gears.table.join(
 )
 
 keybinds.mouse.client = gears.table.join(
+
    awful.button({ }, 1, function (c)
 	 c:emit_signal("request::activate", "mouse_click", {raise = true})
    end),

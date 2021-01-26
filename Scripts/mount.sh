@@ -5,7 +5,7 @@ isMounted    () { findmnt -rno SOURCE,TARGET "$1" >/dev/null;} #path or device
 function mountLMHOMEShare {
   echo "Will Require Sudo Privileges"
 
-  sudo mount -t nfs 206.87.86.221:/home/lmayall/storage /home/lmayall/Network/lmhome
+  sudo mount -t nfs 192.168.1.20:/home/lmayall/storage /home/lmayall/Network/lmhome
 
   echo ":)"
 }

@@ -26,15 +26,13 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-backends
-   (quote
-    (company-elisp company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
+   '(company-elisp company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
                    (company-dabbrev-code company-gtags company-etags company-keywords)
-                   company-oddmuse company-dabbrev)))
- '(custom-enabled-themes (quote (doom-one)))
+                   company-oddmuse company-dabbrev))
+ '(custom-enabled-themes '(doom-one))
  '(custom-safe-themes
-   (quote
-    ("e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default)))
- '(display-line-numbers-type (quote relative))
+   '("2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default))
+ '(display-line-numbers-type 'relative)
  '(flycheck-display-errors-delay 0.3)
  '(flycheck-stylelintrc "~/.stylelintrc.json")
  '(global-display-line-numbers-mode t)
@@ -42,8 +40,7 @@ There are two things you can do about this warning:
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t)
  '(package-selected-packages
-   (quote
-    (company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex)))
+   '(company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
  '(pixel-scroll-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -72,20 +69,20 @@ There are two things you can do about this warning:
   (require 'use-package))
 
 
-(use-package tex
-  :ensure auctex
-  :mode (("\\.tex$" . TeX-mode))
-  )
+;; (use-package tex
+;;   :ensure auctex
+;;   :mode (("\\.tex$" . TeX-mode))
+;;   )
 
-(use-package org
-  :mode (("\\.org$" . org-mode))
-  :config
-  (define-key org-mode-map (kbd "C-<tab>") nil)
-  :bind (
-         ("C-c l" . org-store-link)
-         ("C-c a" . org-agenda)
-         )
-)
+;; (use-package org
+;;   :mode (("\\.org$" . org-mode))
+;;   :config
+;;   (define-key org-mode-map (kbd "C-<tab>") nil)
+;;   :bind (
+;;          ("C-c l" . org-store-link)
+;;          ("C-c a" . org-agenda)
+;;          )
+;; )
 
 (use-package ivy
   :ensure t
@@ -109,6 +106,7 @@ There are two things you can do about this warning:
 
 (use-package treemacs
   :ensure t
+  :defer t
   :bind(
         ([C-tab] . 'treemacs)
         ("C-c t" . 'treemacs-switch-workspace)
@@ -128,61 +126,66 @@ There are two things you can do about this warning:
   (company-tng-configure-default)
   )
 
-(use-package company-auctex
-  :after tex
-  :config
-  (company-auctex-init)
-  )
+(use-package lua-mode
+  :ensure t)
 
-(use-package ess
-  :mode
-  (("\\.R$" . R-mode))
-  (("\\.r$" . R-mode))
-  )
+;; (use-package company-auctex
+;;   :after tex
+;;   :config
+;;   (company-auctex-init)
+;;   )
 
-(use-package rainbow-delimiters
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-  )
+;; (use-package ess
+;;   :mode
+;;   (("\\.R$" . R-mode))
+;;   (("\\.r$" . R-mode))
+;;   )
 
-(use-package smooth-scroll
-  :config
-  (smooth-scroll-mode 1)
-  (setq smooth-scroll/vscroll-step-size 5)
-  )
+;; (use-package rainbow-delimiters
+;;   :ensure t
+;;   :config
+;;   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+;;   )
 
-(use-package flyspell
-  :ensure t
-  :bind
-  ("C-c s" . toggle-flyspell-and-eval-buffer)
-  )
+;; (use-package smooth-scroll
+;;   :config
+;;   (smooth-scroll-mode 1)
+;;   (setq smooth-scroll/vscroll-step-size 5)
+;;   )
 
-(use-package elpy
-  :ensure t
-  :defer t
-  :init
-  (advice-add 'python-mode :before 'elpy-enable))
+;; (use-package flyspell
+;;   :ensure t
+;;   :bind
+;;   ("C-c s" . toggle-flyspell-and-eval-buffer)
+;;   )
 
-(use-package lsp-mode
-  :ensure t
-  )
+;; (use-package elpy
+;;   :ensure t
+;;   :defer t
+;;   :init
+;;   (advice-add 'python-mode :before 'elpy-enable))
+
+;; (use-package lsp-mode
+;;   :ensure t
+;;   )
   
 
-(use-package lsp-java
-  :ensure t
-  :after lsp-mode
-  :config
-  (add-hook 'java-mode-hook' #'lsp)
-  )
+;; (use-package lsp-java
+;;   :ensure t
+;;   :after lsp-mode
+;;   :config
+;;   (add-hook 'java-mode-hook' #'lsp)
+;;   )
 
-(use-package lsp-ui
-  :ensure t
-  )
+;;                                         ;
 
-(use-package company-lsp
-  :ensure t
-  )
+;; (use-package lsp-ui
+;;   :ensure t
+;;   )
+
+;; (use-package company-lsp
+;;   :ensure t
+;;   )
 
 
 ;; Non-package config
