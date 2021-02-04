@@ -9,6 +9,8 @@ Hello, these are my dotfiles for my Arch linux install as of Feb 4, 2020.
 * **PDF Viewer** Zathura
 * **Image Viewer** SXIV
 * **Launcher** Rofi
+* **Text Editor (quick stuff)** Vim
+* **Text Editor (programming)** Emacs
 
 ## PC Specs
 * Ryzen 2600
