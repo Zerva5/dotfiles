@@ -74,6 +74,7 @@ mytextclock = wibox.widget.textclock()
 -- Create tiling wallpaper
 awful.spawn.easy_async_with_shell("hsetroot -tile " .. beautiful.wallpaper .. " -tint \\#101010")
 
+
 -- screen.connect_signal("request::wallpaper", function(s) -- 
     -- Wallpaper
     -- if beautiful.wallpaper then -- 

@@ -1,6 +1,10 @@
 #!/bin/bash
 
-xrandr --output HDMI-A-0 --primary
+xrandr --output DP-0 --primary
+xrandr --output DP-0 --left-of HDMI-0
+
+
+xrandr --output HDMI-0 --rotate left
 # xrandr --output HDMI-A-0 --left-of DisplayPort-0 # 
 
 # xrandr --output DisplayPort-0 --gamma 1.1:1:0.95

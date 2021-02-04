@@ -11,7 +11,7 @@ local themes_path = "/home/lmayall/dotfiles/.config/awesome/themes"
 
 local theme = {}
 
-theme.font          = "JetBrainsMono Nerd Font Bold 14"
+theme.font          = "Iosevka 14"
 
 theme.bg_normal     = "#222222"
 -- theme.bg_focus      = "#535d6c"
