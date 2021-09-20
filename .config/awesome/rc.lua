@@ -73,6 +73,7 @@ mytextclock = wibox.widget.textclock()
 
 -- Create tiling wallpaper
 awful.spawn.easy_async_with_shell("hsetroot -tile " .. beautiful.wallpaper .. " -tint \\#101010")
+awful.spawn.easy_async_with_shell("sh /home/lmayall/dotfiles/Scripts/Laptop/WMStart.sh")
 
 
 -- screen.connect_signal("request::wallpaper", function(s) -- 
@@ -90,7 +91,7 @@ awful.spawn.easy_async_with_shell("hsetroot -tile " .. beautiful.wallpaper .. " 
 
 screen.connect_signal("request::desktop_decoration", function(s)
     -- Each screen has its own tag table.
-    awful.tag({"WORK","WEBS", "TERM", "MUSI", "CHAT", "FILE", "MISC"}, s, awful.layout.layouts[1])
+    awful.tag({"WEBS", "FILE", "WORK", "TERM", "MUSI", "CHAT", "MISC"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
 
@@ -148,7 +149,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 --               layout = wibox.layout.fixed.vertical,
            },
            widget = wibox.container.margin,
-           bottom = 2,
+           bottom = 4, -- normally 2
            color = "#ff7f82",
            --width = 3,
 

@@ -31,7 +31,7 @@ There are two things you can do about this warning:
                    company-oddmuse company-dabbrev))
  '(custom-enabled-themes '(doom-one))
  '(custom-safe-themes
-   '("6c386d159853b0ee6695b45e64f598ed45bd67c47f671f69100817d7db64724d" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default))
+   '("8f5a7a9a3c510ef9cbb88e600c0b4c53cdcdb502cfe3eb50040b7e13c6f4e78e" "6c386d159853b0ee6695b45e64f598ed45bd67c47f671f69100817d7db64724d" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default))
  '(display-line-numbers-type 'relative)
  '(flycheck-display-errors-delay 0.3)
  '(flycheck-stylelintrc "~/.stylelintrc.json")
@@ -49,7 +49,7 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka" :foundry "CYEL" :slant normal :weight normal :height 143 :width normal)))))
+ '(default ((t (:family "Iosevka" :foundry "BE5N" :slant normal :weight semi-bold :height 323 :width normal)))))
 
 (defun toggle-flyspell-and-eval-buffer() "Toggle flyspell and if disabled, run 'eval-buffer'."
   (interactive)
@@ -206,6 +206,7 @@ There are two things you can do about this warning:
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq indent-line-function 'insert-tab)
+(setq visible-bell 1)
 
 ;; Spell check config
 ;; (require 'flyspell)

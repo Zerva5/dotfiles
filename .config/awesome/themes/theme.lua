@@ -11,7 +11,7 @@ local themes_path = "/home/lmayall/dotfiles/.config/awesome/themes"
 
 local theme = {}
 
-theme.font          = "Iosevka 14"
+theme.font          = "Iosevka 24"
 
 theme.bg_normal     = "#222222"
 -- theme.bg_focus      = "#535d6c"
@@ -32,7 +32,7 @@ theme.border_normal = "#000000"
 theme.border_focus  = "#535353"
 theme.border_marked = "#91231c"
 
-theme.wibar_height = dpi(35)
+theme.wibar_height = dpi(70)
 theme.taglist_margin = dpi(8)
 
 
