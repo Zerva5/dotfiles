@@ -11,9 +11,7 @@ local themes_path = "/home/lmayall/dotfiles/.config/awesome/themes"
 
 local theme = {}
 
-theme.scale = 1
-
-theme.font          = "Iosevka " .. 12 * theme.scale
+theme.font          = "Iosevka 14"
 
 theme.bg_normal     = "#222222"
 -- theme.bg_focus      = "#535d6c"
@@ -28,27 +26,23 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#555555"
 
-theme.useless_gap   = 3 * theme.scale
-theme.border_width  = 1 * theme.scale
+theme.useless_gap   = dpi(2)
+theme.border_width  = dpi(1)
 theme.border_normal = "#000000"
 theme.border_focus  = "#535353"
 theme.border_marked = "#91231c"
 
-theme.wibar_height = 30 * theme.scale
-theme.taglist_margin = 2  * theme.scale
+theme.wibar_height = dpi(35)
+theme.taglist_margin = dpi(10)
 
 
 theme.volume_bar_fg = "#fc3948"
 theme.volume_bar_bg = "#88888811"
-theme.volume_bar_height = 100
-theme.volume_bar_width = 20
+theme.volume_bar_height = dpi(5)
+theme.volume_bar_width = dpi(1)
 -- theme.volume_bar_fg = theme.color
-theme.volume_bar_margin = dpi(30)
+theme.volume_bar_margin = dpi(15)
 theme.volume_bar_mute = "#fc394888"
-
-theme.brightness_bar_fg = "#0000ff"
-theme.brightness_bar_bg = "#000000"
-
 
 -- There are other variable sets
 -- overriding the default one when
@@ -111,7 +105,7 @@ theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar
 theme.titlebar_maximized_button_normal_active = themes_path.."default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = themes_path.."/wallpaper.jpg"
+theme.wallpaper = themes_path.."/background"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path.."default/layouts/fairhw.png"

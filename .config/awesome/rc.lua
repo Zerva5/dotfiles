@@ -73,22 +73,22 @@ end)
 mytextclock = wibox.widget.textclock()
 
 -- Create tiling wallpaper
-awful.spawn.easy_async_with_shell("hsetroot -tile " .. beautiful.wallpaper .. " -tint \\#101010")
+--awful.spawn.easy_async_with_shell("hsetroot -tile " .. beautiful.wallpaper .. " -tint \\#101010")
 awful.spawn.easy_async_with_shell("sh /home/lmayall/dotfiles/Scripts/Laptop/WMStart.sh")
 
 
--- screen.connect_signal("request::wallpaper", function(s) -- 
---     --Wallpaper
---     if beautiful.wallpaper then -- 
---         local wallpaper = beautiful.wallpaper
---         -- If wallpaper is a function, call it with the screen
---         if type(wallpaper) == "function" then
---             wallpaper = wallpaper(s)
---         end
---         gears.wallpaper.maximized(wallpaper, s, true)
---                          end
+screen.connect_signal("request::wallpaper", function(s) -- 
+    --Wallpaper
+    if beautiful.wallpaper then -- 
+        local wallpaper = beautiful.wallpaper
+        -- If wallpaper is a function, call it with the screen
+        if type(wallpaper) == "function" then
+            wallpaper = wallpaper(s)
+        end
+        gears.wallpaper.maximized(wallpaper, s, true)
+                         end
                          
--- end)   
+end)   
 
 screen.connect_signal("request::desktop_decoration", function(s)
 
@@ -222,7 +222,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                                widget = wibox.widget.textbox,
                                id = "sep_text",
                                text = "",
-                               font = "FontAwesome 30",
+                               font = "FontAwesome " .. 12 * beautiful.scale,
                             },
                             widget = wibox.container.margin,
                             left = 3,

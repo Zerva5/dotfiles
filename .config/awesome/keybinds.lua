@@ -6,6 +6,7 @@ local naughty = require("naughty")
 
 local config = require("config")
 local volume_popup = require("volume_popup")
+local brightness_popup = require("brightness_popup")
 
 local keybinds = {}
 --
@@ -70,8 +71,8 @@ keybinds.keyboard.global = gears.table.join(
    awful.key({}, "XF86AudioMute", function() volume_popup:mute() end),
    awful.key({}, "XF86AudioStop", function () volume_popup:mute() end),
    
-   --awful.key({}, "XF86MonBrightnessUp", function() widgets.brightness_popup:brightness_up() end),
-   --awful.key({}, "XF86MonBrightnessDown", function() widgets.brightness_popup:brightness_down() end),
+   awful.key({}, "XF86MonBrightnessUp", function() brightness_popup:brightness_up() end),
+   awful.key({}, "XF86MonBrightnessDown", function() brightness_popup:brightness_down() end),
    --
    --awful.key({config.modkey}, "b", function() widgets.brightness_popup:brightness_up() end),
    --awful.key({config.modkey, "Shift"}, "b", function() widgets.brightness_popup:brightness_down() end),
