@@ -1,0 +1,6 @@
+#+OPTIONS: toc:nil
+#+TITLE: Title
+#+AUTHOR: Lucas Mayall - V00937864
+#+LATEX_HEADER: \usepackage[margin=0.75in]{geometry}
+#+LATEX_CLASS_OPTIONS: [a4paper,11pt]
+#+LATEX: \setlength\parindent{0pt}
