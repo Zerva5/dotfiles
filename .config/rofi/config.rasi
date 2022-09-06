@@ -1,4 +1,9 @@
+
+
 configuration {
-	font: "Iosevka Medium 12";
-	theme: "/home/lmayall/dotfiles/.config/rofi/theme.rasi";
-}
+ 
+ font: "Iosevka Medium 12";
+ 
+ }
+
+@theme "theme"

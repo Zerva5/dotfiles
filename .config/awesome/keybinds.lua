@@ -29,9 +29,11 @@ keybinds.keyboard.global = gears.table.join(
 	 local screen = awful.screen.focused()
 	 local screenID = screen.index
 
-     -- naughty.notify({text=tostring(screenID)})
+     -- naughty.notify({text=tostring(screenID)}) -- 
 
 	 --awful.spawn.with_shell("sh /home/lmayall/dotfiles/Scripts/screenshot.sh " .. screenID)
+     awful.spawn.with_shell("deepin-screenshot")
+     
    end),
 
    awful.key({ config.modkey, "Shift"   }, "n",     function () awful.tag.incnmaster(-1, nil, true) end),
@@ -155,8 +157,8 @@ keybinds.keyboard.client = gears.table.join(
    awful.key({config.modkey}, "f", function(c) awful.client.floating.toggle(c) end),
 
    awful.key({config.modkey}, "x", function (c)
-	 c.maximized_horizontal = not c.maximized_horizontal
-	 c.maximized_vertical   = not c.maximized_vertical end),
+         c.maximized = not c.maximized
+   end),
 
    awful.key({ config.modkey, "Shift" }, "s", function(c)
 	 local oldtag = c.first_tag.index

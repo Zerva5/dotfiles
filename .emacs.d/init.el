@@ -40,7 +40,7 @@ There are two things you can do about this warning:
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t)
  '(package-selected-packages
-   '(markdown-mode company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
+   '(racket-mode lsp-latex lsp-treemacs org-journal sml-mode markdown-mode company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
  '(pixel-scroll-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -49,7 +49,7 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka" :foundry "BE5N" :slant normal :weight semi-bold :height 323 :width normal)))))
+ '(default ((t (:family "Iosevka" :foundry "BE5N" :slant normal :weight semi-bold :height 150 :width normal)))))
 
 (defun toggle-flyspell-and-eval-buffer() "Toggle flyspell and if disabled, run 'eval-buffer'."
   (interactive)
@@ -59,6 +59,9 @@ There are two things you can do about this warning:
     (flyspell-buffer))
   )
 
+
+(set-default 'truncate-lines nil)
+
 ;; Use-package install and startup
 
 (unless (package-installed-p 'use-package)
@@ -66,7 +69,9 @@ There are two things you can do about this warning:
   (package-install 'use-package))
 
 (eval-when-compile
-  (require 'use-package))
+  (require 'use-package)
+  (setq use-package-always-ensure t
+        use-package-expand-minimally t))
 
 
 ;; (use-package tex
@@ -74,15 +79,11 @@ There are two things you can do about this warning:
 ;;   :mode (("\\.tex$" . TeX-mode))
 ;;   )
 
-;; (use-package org
-;;   :mode (("\\.org$" . org-mode))
-;;   :config
-;;   (define-key org-mode-map (kbd "C-<tab>") nil)
-;;   :bind (
-;;          ("C-c l" . org-store-link)
-;;          ("C-c a" . org-agenda)
-;;          )
-;; )
+(use-package org
+  :mode (("\\.org$" . org-mode))
+  :config
+  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;truncation disabled
+)
 
 (use-package ivy
   :ensure t
@@ -107,6 +108,7 @@ There are two things you can do about this warning:
 (use-package treemacs
   :ensure t
   :defer t
+;;  :config (setq treemacs-project-follow-mode t)
   :bind(
         ([C-tab] . 'treemacs)
         ("C-c t" . 'treemacs-switch-workspace)
@@ -124,6 +126,7 @@ There are two things you can do about this warning:
   (setq company-selection-wrap-around t)
   
   (company-tng-configure-default)
+  (global-set-key (kbd "<C-return>") 'company-complete)
   )
 
 (use-package lua-mode
@@ -137,23 +140,28 @@ There are two things you can do about this warning:
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
+(use-package sml-mode
+  :ensure t)
+
 ;; (use-package company-auctex
 ;;   :after tex
 ;;   :config
 ;;   (company-auctex-init)
 ;;   )
 
-;; (use-package ess
-;;   :mode
-;;   (("\\.R$" . R-mode))
-;;   (("\\.r$" . R-mode))
-;;   )
+(use-package ess
+  :ensure t
+    
+  ;; :mode
+  ;; (("\\.R$" . R-mode))
+  ;; (("\\.r$" . R-mode))
+  )
 
-;; (use-package rainbow-delimiters
-;;   :ensure t
-;;   :config
-;;   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-;;   )
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  )
 
 ;; (use-package smooth-scroll
 ;;   :config
@@ -161,11 +169,17 @@ There are two things you can do about this warning:
 ;;   (setq smooth-scroll/vscroll-step-size 5)
 ;;   )
 
-;; (use-package flyspell
-;;   :ensure t
-;;   :bind
-;;   ("C-c s" . toggle-flyspell-and-eval-buffer)
-;;   )
+(use-package flyspell
+  :ensure t
+  :mode (
+    ("\\.org$" . flyspell-mode)
+    ("\\.txt$" . flyspell-mode)
+    ;("\\.$" . flyspell-mode)
+    )
+  :bind(
+	("C-c s" . toggle-flyspell-and-eval-buffer)
+	)
+  )
 
 ;; (use-package elpy
 ;;   :ensure t
@@ -173,34 +187,72 @@ There are two things you can do about this warning:
 ;;   :init
 ;;   (advice-add 'python-mode :before 'elpy-enable))
 
-;; (use-package lsp-mode
-;;   :ensure t
-;;   )
-  
+(use-package ccls
+  :ensure t
+  :bind (())
+;;  :config
+  ;; :hook ((c-mode c++-mode objc-mode cuda-mode) .
+  ;;        (lambda () (require 'ccls) (lsp)))
+  ;; (setq ccls-executable "/usr/local/bin/ccls")
+  ;; (setq ccls-initialization-options
+  ;;   '(:index (:comments 2) :completion (:detailedLabel t)))
+  )    
+;; Debug server    
+(use-package dap-mode
+  :ensure t
+  )
 
-;; (use-package lsp-java
-;;   :ensure t
-;;   :after lsp-mode
-;;   :config
-;;   (add-hook 'java-mode-hook' #'lsp)
-;;   )
+(setq lsp-ui-doc-mode nil)
+;; Code completion. LSP: Languade Server Protocol
+(use-package lsp-mode
+  :ensure t
+  :hook ((c-mode . lsp)
+         (c++-mode . lsp)
+         (java-mode . lsp)
+         ;(lsp-mode . lsp-enable-which-key-integration))
+         )
+)   
 
-;;                                         ;
 
-;; (use-package lsp-ui
-;;   :ensure t
-;;   )
+(use-package lsp-treemacs
+  :ensure t
+  :bind
 
-;; (use-package company-lsp
-;;   :ensure t
-;;   )
+  )
 
+(use-package lsp-latex
+  :ensure t
+  )
+
+(use-package lsp-java
+  :ensure t
+  )
+
+(use-package lsp-ui
+  :ensure t
+  :config(
+
+    )
+  )
+
+(use-package org-journal
+  :ensure t)
+
+(use-package racket-mode
+  :ensure t)
+
+(put 'test-case 'racket-indent-function 1)
 
 ;; Non-package config
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
 
-(global-set-key (kbd "C-c e") 'eval-buffer)
+;; Journal Keybind
+(global-set-key (kbd "C-c j") 'org-journal-new-date-entry)
+;;(global-set-key (kbd "C-c e") 'eval-buffer)
+
+;; Use some lsp-ui stuf instead of default lsp-mode
+(define-key (current-global-map) [remap lsp-find-references] 'lsp-ui-peek-find-references)
 
 ;; Make emacs use 4 spaces instead of tabs
 (setq-default indent-tabs-mode nil)
@@ -208,6 +260,27 @@ There are two things you can do about this warning:
 (setq indent-line-function 'insert-tab)
 (setq visible-bell 1)
 
+;; Stop emacs opening scratch when opening file
+(setq inhibit-startup-screen t
+      initial-buffer-choice  nil)
+
+;; keybinds for C
+(with-eval-after-load 'cc-mode
+  (define-key c-mode-map (kbd "C-c c") 'compile)
+    )
+
+;; (with-eval-after-load 'emacs-lisp-mode
+;;     (define-key emacs-lisp-mode-map (kbd "C-c e") upcase-region)
+;;     (define-key emacs-lisp-mode-map (kbd "C-c b") eval-region)
+;; )  
+
+;; Change lsp-mode from Super-l to Cb-c C-l
+(define-key lsp-mode-map (kbd "C-c C-l") lsp-command-map)
+;; mode hooks for compilation
+
+;; 
+;; Default to truncating lines!
+;;(set-default 'truncate-lines nilh)
 ;; Spell check config
 ;; (require 'flyspell)
 ;; (flyspell-mode +1)

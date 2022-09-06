@@ -1,3 +1,5 @@
+local wibox = require("wibox")
+local awful = require("awful")
 
 local config = {}
 
@@ -17,6 +19,16 @@ config.colors = {
    "#e4cb58",
    "#8fc866",
    "#19bc8b"
+}
+
+config.s = {}
+
+config.s.main = {
+   taglist = {"WEBS", "FILE", "WORK", "TERM", "MUSI", "CHAT", "MISC"}
+}
+
+config.s.vert = {
+   taglist = {"FF", "FE", "DC", "SP", "I", "II", "III"}
 }
 
 return config

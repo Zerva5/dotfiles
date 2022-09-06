@@ -1,2 +1,10 @@
-rofi.theme: /home/lmayall/dotfiles/.config/rofi/theme.rasi
-rofi.font: Iosevka Medium 12
+#rofi.theme: /home/lmayall/dotfiles/.config/rofi/theme.rasi
+#rofi.font: Iosevka Medium 12
+
+configuration {
+    #modi: "window,drun,ssh,combi";
+    font: "hack 10";
+    #combi-modi: "window,drun,ssh";
+}
+
+@theme 'theme'    

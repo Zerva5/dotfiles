@@ -37,7 +37,8 @@ end)
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/home/lmayall/dotfiles/.config/awesome/themes/theme.lua")
+
+beautiful.init("/home/lmayall/dotfiles/.config/awesome/themes/" .. awesome.hostname .. ".lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "xterm"
@@ -77,22 +78,41 @@ awful.spawn.easy_async_with_shell("sh /home/lmayall/dotfiles/Scripts/Laptop/WMSt
 
 
 -- screen.connect_signal("request::wallpaper", function(s) -- 
-    -- Wallpaper
-    -- if beautiful.wallpaper then -- 
-    --     local wallpaper = beautiful.wallpaper
-    --     -- If wallpaper is a function, call it with the screen
-    --     if type(wallpaper) == "function" then
-    --         wallpaper = wallpaper(s)
-    --     end
-    --     gears.wallpaper.maximized(wallpaper, s, true)
-                         -- end
+--     --Wallpaper
+--     if beautiful.wallpaper then -- 
+--         local wallpaper = beautiful.wallpaper
+--         -- If wallpaper is a function, call it with the screen
+--         if type(wallpaper) == "function" then
+--             wallpaper = wallpaper(s)
+--         end
+--         gears.wallpaper.maximized(wallpaper, s, true)
+--                          end
                          
 -- end)   
 
 screen.connect_signal("request::desktop_decoration", function(s)
-    -- Each screen has its own tag table.
-    awful.tag({"WEBS", "FILE", "WORK", "TERM", "MUSI", "CHAT", "MISC"}, s, awful.layout.layouts[1])
 
+
+                         -- Each screen has its own tag table.
+                         if (s.index == 1) then
+                            configScreen = config.s.main
+                            s.isMain = 1
+                         elseif (s.index == 2) then
+                            configScreen = config.s.vert
+                            s.isMain = 0
+                         end
+                         
+                         awful.tag(configScreen.taglist, s, awful.layout.layouts[1])
+
+                         if(s.isMain == 0) then 
+                            for k,v in pairs(s.tags) do
+                               --naughty.notify({text = tostring(v)})
+                               awful.tag.incnmaster(1, v)
+                            end
+                         end
+                         
+                            
+                               
     -- Create a promptbox for each screen
 
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.
@@ -176,46 +196,202 @@ screen.connect_signal("request::desktop_decoration", function(s)
     }
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
+       
+       s.mytasklist = awful.widget.tasklist {
+          screen  = s,
+          filter  = awful.widget.tasklist.filter.currenttags,
 
-        widget_template = {
-           {
-              id = 'text_role',
-              widget = wibox.widget.textbox,
-           },
-           widget = wibox.container.place,
-           valign = "center",
-           halign = "center",
-        },
-        buttons = {
-            awful.button({ }, 1, function (c)
-                c:activate { context = "tasklist", action = "toggle_minimization" }
-            end),
-            awful.button({ }, 3, function() awful.menu.client_list { theme = { width = 250 } } end),
-            awful.button({ }, 4, function() awful.client.focus.byidx(-1) end),
-            awful.button({ }, 5, function() awful.client.focus.byidx( 1) end),
-        }
-    }
+          widget_template = {
+             
+             {
+                {
+                   {
+                   {
+                      {
+                         {
+                            widget = awful.widget.clienticon,
+                            id = "icon",
+                         },
+                         top = 2,
+                         bottom = 2,
+                         widget = wibox.container.margin,
+                      },
+                      {
+                         {
+                            {
+                               widget = wibox.widget.textbox,
+                               id = "sep_text",
+                               text = "",
+                               font = "FontAwesome 30",
+                            },
+                            widget = wibox.container.margin,
+                            left = 3,
+                            right = 3,
+                         },
+                         id = "sep_bg",
+                         widget = wibox.container.background,
+                         fg = beautiful.fg_focus
+                      },
+                      {
+                         id = 'class_text',
+                         widget = wibox.widget.textbox
+                      },
+                      layout = wibox.layout.fixed.horizontal,
+                      --id     = 'clienticon',
+                      --widget = awful.widget.clienticon,
+
+                   },
+                   widget = wibox.container.margin,
+                   left = 10,
+                   right = 10,
+                   },
+                   widget = wibox.container.margin,
+                   id = "bottom_color",
+                   bottom = 3,
+                   color = "#ff0000"
+                },
+                widget = wibox.container.background,
+                id = "main_bg",
+                fg = "#ff0000"
+             },
+             widget = wibox.container.place,
+             valign = "center",
+             halign = "center",
+
+             create_callback = function(self, c, index, objects)
+                --text.fg = "#FF0000"
+                class_text = self:get_children_by_id('class_text')[1]
+                sep_text = self:get_children_by_id('sep_text')[1]
+                sep_bg = self:get_children_by_id('sep_bg')[1]
+                main_bg = self:get_children_by_id('main_bg')[1]
+                bottom_color = self:get_children_by_id('bottom_color')[1]
+                
+                if(c == awful.client.focus.history.get (c.screen, 0)) then
+                   c.lastFocused = true
+                else
+                   c.lastFocused = false
+                end
+
+                if(client.focus == c or c.lastFocused == true) then
+                   main_bg.fg = beautiful.fg_focus
+                   main_bg.bg = beautiful.bg_focus
+                   sep_bg.bg = beautiful.alt_bg_focus
+                   sep_bg.fg = config.colors[c.first_tag.index]
+                   bottom_color.color = sep_bg.fg
+                else
+                   main_bg.fg = beautiful.fg_normal
+                   main_bg.bg = beautiful.bg_normal
+                   sep_bg.bg = beautiful.alt_bg_normal
+                   sep_bg.fg = beautiful.alt_fg_normal
+                   bottom_color.color = sep_bg.bg
+                end
+
+                if(c.minimized) then
+                   main_bg.fg = beautiful.fg_minimize
+                   main_bg.bg = beautiful.bg_minimize
+                   sep_bg.bg = beautiful.alt_bg_minmize
+                   sep_bg.fg = beautiful.alt_fg_minimize
+                   bottom_color.color = sep_bg.fg
+                end
+                
+                if(#(objects) > 2 or c.screen.index == 2) then
+                   class_text.text = c.class
+                else
+                   class_text.text = c.name
+                end
+             end,
+
+             update_callback = function(self, c, index, objects)
+--                 if (c:isvisible()) then
+--                    self:get_children_by_id('class_text')[1].text = c.class
+-- --                   self:get_children_by_id('sep_text')[1].visible = false
+--                 else
+--                    self:get_children_by_id('class_text')[1].text = c.name
+--                    --self:get_children_by_id('sep_text')[1].visible = true
+                --                 end
+                class_text = self:get_children_by_id('class_text')[1]
+                sep_text = self:get_children_by_id('sep_text')[1]
+                sep_bg = self:get_children_by_id('sep_bg')[1]
+                main_bg = self:get_children_by_id('main_bg')[1]
+                bottom_color = self:get_children_by_id('bottom_color')[1]
+                
+                if(c == awful.client.focus.history.get (c.screen, 0)) then
+                   c.lastFocused = true
+                else
+                   c.lastFocused = false
+                end
+
+                if(client.focus == c or c.lastFocused == true) then
+                   main_bg.fg = beautiful.fg_focus
+                   main_bg.bg = beautiful.bg_focus
+                   sep_bg.bg = beautiful.alt_bg_focus
+                   sep_bg.fg = config.colors[c.first_tag.index]
+                   bottom_color.color = sep_bg.fg
+                else
+                   main_bg.fg = beautiful.fg_normal
+                   main_bg.bg = beautiful.bg_normal
+                   sep_bg.bg = beautiful.alt_bg_normal
+                   sep_bg.fg = beautiful.alt_fg_normal
+                   bottom_color.color = sep_bg.fg
+                end
+
+                if(c.minimized) then
+                   main_bg.fg = beautiful.fg_minimize
+                   main_bg.bg = beautiful.bg_minimize
+                   sep_bg.bg = beautiful.alt_bg_minmize
+                   sep_bg.fg = beautiful.alt_fg_minimize
+                   bottom_color.color = beautiful.alt_fg_minimize
+                end
+                
+                if(#(objects) > 2 or c.screen.index == 2) then
+                   class_text.text = c.class
+                else
+                   class_text.text = c.name
+                end
+             end,
+          },
+          buttons = {
+             awful.button({ }, 1, function (c)
+                   c:activate { context = "tasklist", action = "toggle_minimization" }
+             end),
+             awful.button({ }, 3, function() awful.menu.client_list { theme = { width = 250 } } end),
+             awful.button({ }, 4, function() awful.client.focus.byidx(-1) end),
+             awful.button({ }, 5, function() awful.client.focus.byidx( 1) end),
+          }
+       }
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s , height = beautiful.wibar_height})
 
     -- Add widgets to the wibox
-    s.mywibox.widget = {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            s.mytaglist,
-        },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
-            mytextclock,
-        },
-    }
+    if (s.index == 1) then       -- Main screen
+       s.mywibox.widget = {
+          layout = wibox.layout.align.horizontal,
+          { -- Left widgets
+             layout = wibox.layout.fixed.horizontal,
+             s.mytaglist,
+          },
+          s.mytasklist, -- Middle widget
+          { -- Right widgets
+             layout = wibox.layout.fixed.horizontal,
+             wibox.widget.systray(),
+             mytextclock,
+          },
+       }
+    else                        -- Side monitor
+        s.mywibox.widget = {
+          layout = wibox.layout.align.horizontal,
+          { -- Left widgets
+             layout = wibox.layout.fixed.horizontal,
+             s.mytaglist,
+          },
+          s.mytasklist -- Middle widget
+        }
+    end
+    
+
+
+
 end)
 -- }}}
 
