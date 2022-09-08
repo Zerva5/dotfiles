@@ -7,6 +7,7 @@ local naughty = require("naughty")
 local config = require("config")
 local volume_popup = require("volume_popup")
 local brightness_popup = require("brightness_popup")
+local powerMenu = require("powerMenu")
 
 local keybinds = {}
 --
@@ -16,15 +17,60 @@ keybinds.mouse = {}
 --
 keybinds.keyboard.global = gears.table.join(
 
+   
+
    -- awful.key({config.modkey}, "q", function() awesome.quit() end),
 
    --awful.key({config.modkey, "Shift"}, "p", function()widgets.powerMenu:off()end),
    --awful.key({config.modkey, "Shift"}, "r", function()widgets.powerMenu:restart()end),
    --awful.key({config.modkey, "Shift"}, "l", function()widgets.powerMenu:logout()end),
    --
-   --awful.key({config.modkey}, "p", function()
-	-- widgets.powerMenu:toggleVisible()
-   --end),
+   -- awful.key({config.modkey}, "p", function()
+   -- 	powerMenu:toggleVisible()
+   -- end),
+
+   awful.key({config.modkey}, "p",
+      
+        awful.keygrabber {
+          stop_key       = config.modkey,
+          stop_event     = 'release',
+          start_callback = function()
+	     naughty.notification { message = "start 1" }
+	     powerMenu:toggleVisible()
+	  end,
+          stop_callback  = function()
+	     naughty.notification { message = "stop 1" }
+	     powerMenu:toggleVisible()
+	  end,
+	  
+          keybindings    = {
+	     { { "Mod4" }, "l", function()
+		   -- naughty.notification { message = "lock" }
+		   awful.keygrabber.current_instance:stop()
+	     end,
+	     },
+	     { { "Mod4" , "Shift"}, "L", function()
+		   -- naughty.notification { message = "log off" }
+		   powerMenu:logout()
+		   awful.keygrabber.current_instance:stop()
+	     end,
+	     },
+	     { { "Mod4" }, "p", function()
+		   naughty.notification { message = "power off" }
+		   powerMenu:off()
+		   awful.keygrabber.current_instance:stop()
+	     end,
+	     },
+	     { { "Mod4" }, "r", function()
+		   naughty.notification { message = "restart" }
+		   powerMenu:restart()
+		   awful.keygrabber.current_instance:stop()
+	     end,
+	     },
+          },
+        },
+        { description = "run keygrabber ", group = "test" }
+   ),
 
    awful.key({}, "Print", function()
 	 local screen = awful.screen.focused()
