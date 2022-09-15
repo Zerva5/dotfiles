@@ -31,56 +31,51 @@ keybinds.keyboard.global = gears.table.join(
 
    awful.key({config.modkey}, "p",
       
-        awful.keygrabber {
-          stop_key       = config.modkey,
-          stop_event     = 'release',
-          start_callback = function()
-	     naughty.notification { message = "start 1" }
-	     powerMenu:toggleVisible()
-	  end,
-          stop_callback  = function()
-	     naughty.notification { message = "stop 1" }
-	     powerMenu:toggleVisible()
-	  end,
-	  
-          keybindings    = {
-	     { { "Mod4" }, "l", function()
-		   -- naughty.notification { message = "lock" }
-		   awful.keygrabber.current_instance:stop()
-	     end,
-	     },
-	     { { "Mod4" , "Shift"}, "L", function()
-		   -- naughty.notification { message = "log off" }
-		   powerMenu:logout()
-		   awful.keygrabber.current_instance:stop()
-	     end,
-	     },
-	     { { "Mod4" }, "p", function()
-		   naughty.notification { message = "power off" }
-		   powerMenu:off()
-		   awful.keygrabber.current_instance:stop()
-	     end,
-	     },
-	     { { "Mod4" }, "r", function()
-		   naughty.notification { message = "restart" }
-		   powerMenu:restart()
-		   awful.keygrabber.current_instance:stop()
-	     end,
-	     },
-          },
-        },
-        { description = "run keygrabber ", group = "test" }
+      awful.keygrabber {
+         stop_key       = config.modkey,
+         stop_event     = 'release',
+         start_callback = function()
+            -- naughty.notification { message = "start 1" } -- 
+            powerMenu:toggleVisible()
+         end,
+         stop_callback  = function()
+            powerMenu:toggleVisible()
+         end,
+         
+         keybindings    = {
+            { { "Mod4" }, "l", function()
+                  awful.keygrabber.current_instance:stop()
+            end,
+            },
+            { { "Mod4" , "Shift"}, "L", function()
+                  powerMenu:logout()
+                  awful.keygrabber.current_instance:stop()
+            end,
+            },
+            { { "Mod4" }, "p", function()
+                  powerMenu:off()
+                  awful.keygrabber.current_instance:stop()
+            end,
+            },
+            { { "Mod4" }, "r", function()
+                  powerMenu:restart()
+                  awful.keygrabber.current_instance:stop()
+            end,
+            },
+         },
+      },
+      { description = "run keygrabber ", group = "test" }
    ),
 
    awful.key({}, "Print", function()
-	 local screen = awful.screen.focused()
-	 local screenID = screen.index
+         local screen = awful.screen.focused()
+         local screenID = screen.index
 
-     -- naughty.notify({text=tostring(screenID)}) -- 
+         -- naughty.notify({text=tostring(screenID)}) -- 
 
-	 --awful.spawn.with_shell("sh /home/lmayall/dotfiles/Scripts/screenshot.sh " .. screenID)
-     awful.spawn.with_shell("deepin-screenshot")
-     
+         --awful.spawn.with_shell("sh /home/lmayall/dotfiles/Scripts/screenshot.sh " .. screenID)
+         awful.spawn.with_shell("deepin-screenshot")
+         
    end),
 
    awful.key({ config.modkey, "Shift"   }, "n",     function () awful.tag.incnmaster(-1, nil, true) end),
@@ -151,13 +146,13 @@ keybinds.keyboard.global = gears.table.join(
    end),
 
    awful.key({config.modkey, "Shift"}, "k", function ()
-	 local c = awful.client.restore()
-	 -- Focus restored client
-	 if c then
-	    c:emit_signal(
-	       "request::activate", "key.unminimize", {raise = true}
-	    )
-	 end
+         local c = awful.client.restore()
+         -- Focus restored client
+         if c then
+            c:emit_signal(
+               "request::activate", "key.unminimize", {raise = true}
+            )
+         end
    end)
 
    -- awful.key(config.modkey, )
@@ -166,27 +161,27 @@ keybinds.keyboard.global = gears.table.join(
 --
 for i = 1, 7 do
    keybinds.keyboard.global = gears.table.join(keybinds.keyboard.global,
-					       -- View tag only.
-					       awful.key({ config.modkey }, "#" .. i + 9,
-						  function ()
-						     local screen = awful.screen.focused()
-						     local tag = screen.tags[i]
-						     if tag then
-							tag:view_only()
-						     end
-						  end,
-						  {description = "view tag #"..i, group = "tag"}),
-					       -- Move client to tag.
-					       awful.key({ config.modkey, "Shift" }, "#" .. i + 9,
-						  function ()
-						     if client.focus then
-							local tag = client.focus.screen.tags[i]
-							if tag then
-							   client.focus:move_to_tag(tag)
-							end
-						     end
-						  end,
-						  {description = "move focused client to tag #"..i, group = "tag"})
+                                               -- View tag only.
+                                               awful.key({ config.modkey }, "#" .. i + 9,
+                                                  function ()
+                                                     local screen = awful.screen.focused()
+                                                     local tag = screen.tags[i]
+                                                     if tag then
+                                                        tag:view_only()
+                                                     end
+                                                  end,
+                                                  {description = "view tag #"..i, group = "tag"}),
+                                               -- Move client to tag.
+                                               awful.key({ config.modkey, "Shift" }, "#" .. i + 9,
+                                                  function ()
+                                                     if client.focus then
+                                                        local tag = client.focus.screen.tags[i]
+                                                        if tag then
+                                                           client.focus:move_to_tag(tag)
+                                                        end
+                                                     end
+                                                  end,
+                                                  {description = "move focused client to tag #"..i, group = "tag"})
    )
 end
 
@@ -195,8 +190,8 @@ keybinds.keyboard.client = gears.table.join(
    awful.key({config.modkey}, "q", function(c) c:kill() end),
 
    awful.key({}, "F11", function(c)
-	 c.fullscreen = not c.fullscreen
-	 c:raise()
+         c.fullscreen = not c.fullscreen
+         c:raise()
    end),
 
    awful.key({config.modkey}, "k", function(c) c.minimized = true end),
@@ -208,13 +203,13 @@ keybinds.keyboard.client = gears.table.join(
    end),
 
    awful.key({ config.modkey, "Shift" }, "s", function(c)
-	 local oldtag = c.first_tag.index
+         local oldtag = c.first_tag.index
 
-	 c:move_to_screen ()
+         c:move_to_screen ()
 
-	 local newtags = awful.screen.focused().tags
+         local newtags = awful.screen.focused().tags
 
-	 --	    c:move_to_tag(newtags[oldtag])
+         --	    c:move_to_tag(newtags[oldtag])
 
 
    end)
@@ -224,15 +219,15 @@ keybinds.keyboard.client = gears.table.join(
 keybinds.mouse.client = gears.table.join(
 
    awful.button({ }, 1, function (c)
-	 c:emit_signal("request::activate", "mouse_click", {raise = true})
+         c:emit_signal("request::activate", "mouse_click", {raise = true})
    end),
    awful.button({ config.modkey }, 1, function (c)
-	 c:emit_signal("request::activate", "mouse_click", {raise = true})
-	 awful.mouse.client.move(c)
+         c:emit_signal("request::activate", "mouse_click", {raise = true})
+         awful.mouse.client.move(c)
    end),
    awful.button({ config.modkey }, 3, function (c)
-	 c:emit_signal("request::activate", "mouse_click", {raise = true})
-	 awful.mouse.client.resize(c)
+         c:emit_signal("request::activate", "mouse_click", {raise = true})
+         awful.mouse.client.resize(c)
    end)
 )
 
@@ -242,15 +237,15 @@ keybinds.mouse.taglist = gears.table.join(
 
 keybinds.mouse.tasklist = gears.table.join(
    awful.button({ }, 1, function (c)
-	 if c == client.focus then
-	    c.minimized = true
-	 else
-	    c:emit_signal(
-	       "request::activate",
-	       "tasklist",
-	       {raise = true}
-	    )
-	 end
+         if c == client.focus then
+            c.minimized = true
+         else
+            c:emit_signal(
+               "request::activate",
+               "tasklist",
+               {raise = true}
+            )
+         end
    end)
 )
 

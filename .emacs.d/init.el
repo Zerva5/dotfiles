@@ -31,7 +31,7 @@ There are two things you can do about this warning:
                    company-oddmuse company-dabbrev))
  '(custom-enabled-themes '(doom-one))
  '(custom-safe-themes
-   '("8f5a7a9a3c510ef9cbb88e600c0b4c53cdcdb502cfe3eb50040b7e13c6f4e78e" "6c386d159853b0ee6695b45e64f598ed45bd67c47f671f69100817d7db64724d" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default))
+   '("02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" "8f5a7a9a3c510ef9cbb88e600c0b4c53cdcdb502cfe3eb50040b7e13c6f4e78e" "6c386d159853b0ee6695b45e64f598ed45bd67c47f671f69100817d7db64724d" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default))
  '(display-line-numbers-type 'relative)
  '(flycheck-display-errors-delay 0.3)
  '(flycheck-stylelintrc "~/.stylelintrc.json")
@@ -40,7 +40,7 @@ There are two things you can do about this warning:
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t)
  '(package-selected-packages
-   '(racket-mode lsp-latex lsp-treemacs org-journal sml-mode markdown-mode company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
+   '(pyvenv lsp-pyright ccls racket-mode lsp-latex lsp-treemacs org-journal sml-mode markdown-mode company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
  '(pixel-scroll-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -85,11 +85,13 @@ There are two things you can do about this warning:
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;truncation disabled
 )
 
+;; Completion framework (GENERALLY NOT IN BUFFER)
 (use-package ivy
   :ensure t
   :config(ivy-mode 1)
   )
 
+;; Search for ivy
 (use-package swiper
   :after (ivy)
   :ensure t
@@ -98,6 +100,7 @@ There are two things you can do about this warning:
         )
   )
 
+;; Provides useful commands that use ivy
 (use-package counsel
   :after swiper
   :ensure t)
@@ -105,6 +108,7 @@ There are two things you can do about this warning:
 (use-package doom-themes
   :ensure t)
 
+;; Tree based project viewer
 (use-package treemacs
   :ensure t
   :defer t
@@ -115,6 +119,8 @@ There are two things you can do about this warning:
         )
   )
 
+
+;; In buffer completion framework
 (use-package company
   :ensure t
   
@@ -129,9 +135,12 @@ There are two things you can do about this warning:
   (global-set-key (kbd "<C-return>") 'company-complete)
   )
 
+
+;; Syntax highlighting for lua
 (use-package lua-mode
   :ensure t)
 
+;; Syntax highlighting
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -139,6 +148,7 @@ There are two things you can do about this warning:
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+
 
 (use-package sml-mode
   :ensure t)
@@ -149,14 +159,15 @@ There are two things you can do about this warning:
 ;;   (company-auctex-init)
 ;;   )
 
+;; Mode for R
 (use-package ess
   :ensure t
-    
-  ;; :mode
-  ;; (("\\.R$" . R-mode))
-  ;; (("\\.r$" . R-mode))
+  :mode
+  (("\\.R$" . R-mode))
+  (("\\.r$" . R-mode))
   )
 
+;; Rainbows!
 (use-package rainbow-delimiters
   :ensure t
   :config
@@ -169,11 +180,12 @@ There are two things you can do about this warning:
 ;;   (setq smooth-scroll/vscroll-step-size 5)
 ;;   )
 
+;; Spell check
 (use-package flyspell
   :ensure t
   :mode (
-    ("\\.org$" . flyspell-mode)
-    ("\\.txt$" . flyspell-mode)
+;;    ("\\.org$" . flyspell-mode)
+;;    ("\\.txt$" . flyspell-mode)
     ;("\\.$" . flyspell-mode)
     )
   :bind(
@@ -181,12 +193,7 @@ There are two things you can do about this warning:
 	)
   )
 
-;; (use-package elpy
-;;   :ensure t
-;;   :defer t
-;;   :init
-;;   (advice-add 'python-mode :before 'elpy-enable))
-
+;; C/C++ mode & code server
 (use-package ccls
   :ensure t
   :bind (())
@@ -196,13 +203,16 @@ There are two things you can do about this warning:
   ;; (setq ccls-executable "/usr/local/bin/ccls")
   ;; (setq ccls-initialization-options
   ;;   '(:index (:comments 2) :completion (:detailedLabel t)))
-  )    
-;; Debug server    
+  )
+
+
+;; Debug server, not for one specific language
 (use-package dap-mode
   :ensure t
   )
 
 (setq lsp-ui-doc-mode nil)
+
 ;; Code completion. LSP: Languade Server Protocol
 (use-package lsp-mode
   :ensure t
@@ -210,14 +220,12 @@ There are two things you can do about this warning:
          (c++-mode . lsp)
          (java-mode . lsp)
          ;(lsp-mode . lsp-enable-which-key-integration))
-         )
-)   
+         ))
 
+;; LSP completion for these things:
 
 (use-package lsp-treemacs
   :ensure t
-  :bind
-
   )
 
 (use-package lsp-latex
@@ -228,20 +236,41 @@ There are two things you can do about this warning:
   :ensure t
   )
 
+;; Python 
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferred
+
+;; Has high level UI modules for LSP
 (use-package lsp-ui
   :ensure t
   :config(
+    setq lsp-idle-delay 0.500
 
     )
   )
 
+;;; So we can select python Venvs and lsp-pyright will pick it up
+(use-package pyvenv
+  :ensure t
+  :init
+  (setenv "WORKON_HOME" "~/.conda/envs")
+  )
+
+
 (use-package org-journal
   :ensure t)
 
+
+;; Support for racket
 (use-package racket-mode
   :ensure t)
 
 (put 'test-case 'racket-indent-function 1)
+
+
 
 ;; Non-package config
 
@@ -249,7 +278,6 @@ There are two things you can do about this warning:
 
 ;; Journal Keybind
 (global-set-key (kbd "C-c j") 'org-journal-new-date-entry)
-;;(global-set-key (kbd "C-c e") 'eval-buffer)
 
 ;; Use some lsp-ui stuf instead of default lsp-mode
 (define-key (current-global-map) [remap lsp-find-references] 'lsp-ui-peek-find-references)

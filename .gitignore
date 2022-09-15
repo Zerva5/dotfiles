@@ -3,7 +3,8 @@
 .#*
 
 **/#*#
-
+    
+.emacs.d/eclipse.jdt.ls/test-runner/junit-platform-console-standalone.jar
 .emacs.d/.cache
 .emacs.d/auto-save-list
 .emacs.d/elpa
@@ -11,6 +12,9 @@
 .emacs.d/workspace
 .emacs.d/.lsp-session-v1
 
+
 .config/nvim/plugged
 .config/nvim/spell
 .config/nvim/.netrwhist
+
+    
