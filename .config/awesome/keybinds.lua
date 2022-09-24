@@ -111,6 +111,10 @@ keybinds.keyboard.global = gears.table.join(
    awful.key({}, "XF86AudioLowerVolume", function() volume_popup:volume_down() end),
    awful.key({}, "XF86AudioMute", function() volume_popup:mute() end),
    awful.key({}, "XF86AudioStop", function () volume_popup:mute() end),
+
+   awful.key({config.modkey}, "Up", function() volume_popup:volume_up() end),
+   awful.key({config.modkey}, "Down", function() volume_popup:volume_down() end),
+   awful.key({config.modkey, "Shift"}, "Down", function() volume_popup:mute() end),
    
    awful.key({}, "XF86MonBrightnessUp", function() brightness_popup:brightness_up() end),
    awful.key({}, "XF86MonBrightnessDown", function() brightness_popup:brightness_down() end),
@@ -121,6 +125,10 @@ keybinds.keyboard.global = gears.table.join(
    awful.key({}, "XF86AudioNext", function() awful.spawn.with_shell("playerctl next") end),
    awful.key({}, "XF86AudioPrev", function() awful.spawn.with_shell("playerctl previous") end),
    awful.key({}, "XF86AudioPlay", function() awful.spawn.with_shell("playerctl play-pause") end),
+
+   awful.key({config.modkey}, "Right", function() awful.spawn.with_shell("playerctl next") end),
+   awful.key({config.modkey}, "Left", function() awful.spawn.with_shell("playerctl previous") end),
+   awful.key({config.modkey, "Shift"}, "Left", function() awful.spawn.with_shell("playerctl play-pause") end),
 
    -- awful.key({config.modkey}, "c", function() naughty.notify({text = "This is a test", title = "Test"})end),
 
