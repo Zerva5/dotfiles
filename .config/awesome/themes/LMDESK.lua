@@ -2,6 +2,8 @@
 -- Default awesome theme --
 ---------------------------
 
+-- Would be nice to be able to set screen orientation and size in awesome and then have it run the xrandr command
+
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -111,7 +113,17 @@ theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar
 theme.titlebar_maximized_button_normal_active = themes_path.."default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = themes_path.."/wallpaper.jpg"
+-- theme.wallpaper = themes_path.."/wallpaper.png"
+-- theme.vertWallpaper = themes_path.."/wallpaper_vertical.png"
+
+theme.wallpaper = function(s)
+   if(s.index == 1) then
+      return themes_path.."/wallpaper.png"
+   else
+      return themes_path.."/wallpaper_vertical.png"
+   end
+
+end
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path.."default/layouts/fairhw.png"
