@@ -2,6 +2,8 @@
 -- Default awesome theme --
 ---------------------------
 
+-- Would be nice to be able to set screen orientation and size in awesome and then have it run the xrandr command
+
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -9,17 +11,17 @@ local dpi = xresources.apply_dpi
 local gfs = require("gears.filesystem")
 local themes_path = "/home/lmayall/dotfiles/.config/awesome/themes"
 
-local config = require("config")
-
 local theme = {}
 
-theme.font          = "Iosevka 14"
+theme.scale = 1.5
+
+theme.font          = "Iosevka " .. 12
 
 theme.bg_normal     = "#222222"
 -- theme.bg_focus      = "#535d6c"
-theme.bg_focus =    "#222222"
+theme.bg_focus = "#202020"
 theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#222222"
+theme.bg_minimize   = "#444444"
 --theme.bg_minimize = "#ff0000"
 theme.bg_systray    = theme.bg_normal
 
@@ -28,29 +30,27 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#555555"
 
-theme.useless_gap   = dpi(2)
-theme.border_width  = dpi(1)
+theme.useless_gap   = 3 * theme.scale
+theme.border_width  = 1 * theme.scale
 theme.border_normal = "#000000"
 theme.border_focus  = "#535353"
 theme.border_marked = "#91231c"
 
-theme.wibar_height = dpi(35)
-theme.taglist_margin = dpi(8)
+theme.wibar_height = 30 * theme.scale
+theme.taglist_margin = 4  * theme.scale
 
-theme.alt_bg_focus = theme.bg_normal
-theme.alt_fg_focus = theme.fg_focus
-theme.alt_fg_normal = theme.fg_normal
-theme.alt_bg_normal = theme.bg_normal
-theme.alt_fg_minimize = theme.fg_minimize
-theme.alt_bg_minimize = theme.bg_normal
 
 theme.volume_bar_fg = "#fc3948"
 theme.volume_bar_bg = "#88888811"
-theme.volume_bar_height = dpi(10)
-theme.volume_bar_width = dpi(1)
+theme.volume_bar_height = 100
+theme.volume_bar_width = 20
 -- theme.volume_bar_fg = theme.color
 theme.volume_bar_margin = dpi(30)
 theme.volume_bar_mute = "#fc394888"
+
+theme.brightness_bar_fg = "#0000ff"
+theme.brightness_bar_bg = "#000000"
+
 
 -- There are other variable sets
 -- overriding the default one when
@@ -113,7 +113,17 @@ theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar
 theme.titlebar_maximized_button_normal_active = themes_path.."default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = themes_path.."/background2"
+-- theme.wallpaper = themes_path.."/wallpaper.png"
+-- theme.vertWallpaper = themes_path.."/wallpaper_vertical.png"
+
+theme.wallpaper = function(s)
+   if(s.index == 1) then
+      return themes_path.."/wallpaper.png"
+   else
+      return themes_path.."/wallpaper_vertical.png"
+   end
+
+end
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path.."default/layouts/fairhw.png"
