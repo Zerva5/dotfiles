@@ -11,6 +11,7 @@
 .emacs.d/elpy
 .emacs.d/workspace
 .emacs.d/.lsp-session-v1
+.emacs.d/.dap-breakpoints
 
 
 .config/nvim/plugged
