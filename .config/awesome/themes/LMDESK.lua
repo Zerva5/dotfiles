@@ -30,7 +30,7 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#555555"
 
-theme.useless_gap   = 3 * theme.scale
+theme.useless_gap   = 4 * theme.scale
 theme.border_width  = 1 * theme.scale
 theme.border_normal = "#000000"
 theme.border_focus  = "#535353"

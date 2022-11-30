@@ -32,33 +32,44 @@ powerMenu.restart = wibox.widget{
 powerMenu.wibox = wibox({
             -- width = awful.screen.focused().geometry.width / 6,
             -- height = awful.screen.focused().geometry.height,
-	    width = 400 * config.scaling,
-            height = 40 * config.scaling,
-	    x = (awful.screen.focused().geometry.width / 2) - (200 * config.scaling),
-            y = (awful.screen.focused().geometry.height / 2) - (20 * config.scaling),
-            ontop = true,
-            visible = false,
+      width = 400 * config.scaling,
+      height = 40 * config.scaling,
+      x = (awful.screen.focused().geometry.width / 2),
+      y = (awful.screen.focused().geometry.height / 2),
+      screen = 1,
+      
+      ontop = true,
+      visible = false,
 
-            widget = wibox.widget {
-                              
-               
-	       {
-		  powerMenu.logout,
-		  powerMenu.off,
-		  powerMenu.restart,
-		  layout = wibox.layout.align.horizontal,
-		  -- layout = wibox.container.margin,
 
-	       },
-	       layout = wibox.container.margin,
-	       left = 30,
-	       right = 30,
+      widget = wibox.widget {
+         
+         
+         {
+            powerMenu.logout,
+            powerMenu.off,
+            powerMenu.restart,
+            layout = wibox.layout.align.horizontal,
+            -- layout = wibox.container.margin,
+         },
+         layout = wibox.container.margin,
+         left = 30,
+         right = 30,
 
-	    },
+      },
 })
 
 
 function powerMenu:toggleVisible()
+   -- for s in screen do
+   --    if (s.index == 1) then
+   --       self.wibox.x = (s.geometry.width / 2) -- self.wibox.width/2)
+   --       self.wibox.y = (s.geometry.height / 2) -- self.wibox.height/2)
+   --       break
+   --    end
+   -- end
+
+   
    self.wibox.visible = not self.wibox.visible
 end
 

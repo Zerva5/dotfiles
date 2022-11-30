@@ -20,7 +20,9 @@ volume_popup = {
                 color = "#fc3948",
                 background_color = "#222222",
 --				background_color = beautiful.volume_bar_bg,
-				widget = wibox.widget.progressbar
+				widget = wibox.widget.progressbar,
+                screen = 2
+                
 			},
 			widget = wibox.container.rotate,
 			direction = "east"
@@ -31,7 +33,9 @@ volume_popup = {
 		end,
 		ontop = true,
 		visible = false,
+        screen = 1
 	},
+
 
 	timer = gears.timer{
 		timeout = 1,

@@ -32,6 +32,7 @@ brightness_popup  = {
 		end,
 		ontop = true,
 		visible = false,
+        screen = 1
 	},
 
 	timer = gears.timer{

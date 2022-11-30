@@ -89,7 +89,6 @@ screen.connect_signal("request::wallpaper", function(s) --
                             
                             gears.wallpaper.maximized(wallpaper, s, true)
                          end
-                         
 end)   
 
 screen.connect_signal("request::desktop_decoration", function(s)
@@ -114,7 +113,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                          end
                          
                             
-                               
+
     -- Create a promptbox for each screen
 
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.

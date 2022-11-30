@@ -31,5 +31,7 @@ config.s.vert = {
    taglist = {"FF", "FE", "DC", "SP", "I", "II", "III"}
 }
 
+config.mainScreen = 1
+
 return config
 

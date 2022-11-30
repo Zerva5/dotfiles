@@ -17,5 +17,6 @@ xrandr --output DVI-D-0 --off --output HDMI-0 --mode 1920x1080 --pos 0x0 --rotat
 
 xset dpms 300 0 0
 
+#picom &
 
 #export GDK_DPI_SCALE=1.5
