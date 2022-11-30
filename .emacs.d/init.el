@@ -40,8 +40,7 @@ There are two things you can do about this warning:
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t)
  '(package-selected-packages
-   '(pyvenv lsp-pyright ccls racket-mode lsp-latex lsp-treemacs org-journal sml-mode markdown-mode company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
- '(pixel-scroll-mode nil)
+   '(lisp pyvenv lsp-pyright ccls racket-mode lsp-latex lsp-treemacs org-journal sml-mode markdown-mode company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
 (custom-set-faces
@@ -83,6 +82,8 @@ There are two things you can do about this warning:
   :mode (("\\.org$" . org-mode))
   :config
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;truncation disabled
+  (define-key org-mode-map (kbd "C-c C-c") 'org-latex-export-to-pdf) ;
+
 )
 
 ;; Completion framework (GENERALLY NOT IN BUFFER)
@@ -165,6 +166,8 @@ There are two things you can do about this warning:
   :mode
   (("\\.R$" . R-mode))
   (("\\.r$" . R-mode))
+  :config
+  (setq ess-r-backend 'lsp)           
   )
 
 ;; Rainbows!
@@ -220,7 +223,12 @@ There are two things you can do about this warning:
          (c++-mode . lsp)
          (java-mode . lsp)
          ;(lsp-mode . lsp-enable-which-key-integration))
-         ))
+         )
+  :config 
+           (setq gc-cons-threshold 100000000)
+           (setq read-process-output-max (* 1024 1024))
+
+  )
 
 ;; LSP completion for these things:
 
@@ -292,12 +300,15 @@ There are two things you can do about this warning:
 (setq inhibit-startup-screen t
       initial-buffer-choice  nil)
 
+;; STOP EMACS MAKING THE RANDOM BACKUP FILES. YES
+(setq backup-inhibited t)
+
 ;; keybinds for C
 (with-eval-after-load 'cc-mode
   (define-key c-mode-map (kbd "C-c c") 'compile)
     )
 
-;; (with-eval-after-load 'emacs-lisp-mode
+ ;; (with-eval-after-load 'emacs-lisp-mode
 ;;     (define-key emacs-lisp-mode-map (kbd "C-c e") upcase-region)
 ;;     (define-key emacs-lisp-mode-map (kbd "C-c b") eval-region)
 ;; )  
@@ -314,3 +325,27 @@ There are two things you can do about this warning:
 ;; (flyspell-mode +1)
 
 ;; (global-set-key (kbd "C-c s") 'flyspell-buffer)
+
+
+;; Insert dual quatations!
+(global-set-key "\M-'" 'insert-quotations)
+(global-set-key "\M-\"" 'insert-quotes)
+(global-set-key (kbd "C-'") 'insert-backquote)
+
+(defun insert-quotations (&optional arg)
+  "Enclose following ARG sexps in quotation marks.
+Leave point after open-paren."
+  (interactive "*P")
+  (insert-pair arg ?\' ?\'))
+
+(defun insert-quotes (&optional arg)
+  "Enclose following ARG sexps in quotes.
+Leave point after open-quote."
+  (interactive "*P")
+  (insert-pair arg ?\" ?\"))
+
+(defun insert-backquote (&optional arg)
+  "Enclose following ARG sexps in quotations with backquote.
+Leave point after open-quotation."
+  (interactive "*P")
+  (insert-pair arg ?\` ?\'))
