@@ -40,7 +40,11 @@ There are two things you can do about this warning:
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t)
  '(package-selected-packages
+<<<<<<< HEAD
    '(jupyter poly-R polymode lisp pyvenv lsp-pyright ccls racket-mode lsp-latex lsp-treemacs org-journal sml-mode markdown-mode company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
+=======
+   '(ein emacs-jupyter poly-R polymode lisp pyvenv lsp-pyright ccls racket-mode lsp-latex lsp-treemacs org-journal sml-mode markdown-mode company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
+>>>>>>> e9fb18fd09e6a6b3248d6cb94eafe6fad1722ade
  '(tool-bar-mode nil)
  '(tooltip-mode nil)
  '(warning-suppress-types '((comp) (comp) (comp) (comp) (comp) (comp) (comp))))
@@ -173,6 +177,11 @@ There are two things you can do about this warning:
   (("\\.r$" . R-mode))
   :config
   (setq ess-r-backend 'lsp)           
+  )
+
+;; Jupyter notebook suppoer
+(use-package ein
+  :ensure t
   )
 
 (use-package polymode

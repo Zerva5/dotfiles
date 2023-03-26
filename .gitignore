@@ -12,6 +12,7 @@
 .emacs.d/workspace
 .emacs.d/.lsp-session-v1
 .emacs.d/.dap-breakpoints
+.emacs.d/request   
 
 .config/nvim/plugged
 .config/nvim/spell
