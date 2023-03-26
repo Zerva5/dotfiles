@@ -40,9 +40,10 @@ There are two things you can do about this warning:
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t)
  '(package-selected-packages
-   '(poly-R polymode lisp pyvenv lsp-pyright ccls racket-mode lsp-latex lsp-treemacs org-journal sml-mode markdown-mode company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
+   '(jupyter poly-R polymode lisp pyvenv lsp-pyright ccls racket-mode lsp-latex lsp-treemacs org-journal sml-mode markdown-mode company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
  '(tool-bar-mode nil)
- '(tooltip-mode nil))
+ '(tooltip-mode nil)
+ '(warning-suppress-types '((comp) (comp) (comp) (comp) (comp) (comp) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -149,6 +150,10 @@ There are two things you can do about this warning:
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
+
+(use-package jupyter
+  :ensure t
+  )
 
 
 (use-package sml-mode
