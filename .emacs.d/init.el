@@ -26,12 +26,12 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-backends
-   '(company-elisp company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
-                   (company-dabbrev-code company-gtags company-etags company-keywords)
-                   company-oddmuse company-dabbrev))
+    '(company-elisp company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
+                    (company-dabbrev-code company-gtags company-etags company-keywords)
+                    company-oddmuse company-dabbrev))
  '(custom-enabled-themes '(doom-one))
  '(custom-safe-themes
-   '("02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" "8f5a7a9a3c510ef9cbb88e600c0b4c53cdcdb502cfe3eb50040b7e13c6f4e78e" "6c386d159853b0ee6695b45e64f598ed45bd67c47f671f69100817d7db64724d" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default))
+    '("02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" "8f5a7a9a3c510ef9cbb88e600c0b4c53cdcdb502cfe3eb50040b7e13c6f4e78e" "6c386d159853b0ee6695b45e64f598ed45bd67c47f671f69100817d7db64724d" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default))
  '(display-line-numbers-type 'relative)
  '(flycheck-display-errors-delay 0.3)
  '(flycheck-stylelintrc "~/.stylelintrc.json")
@@ -39,26 +39,37 @@ There are two things you can do about this warning:
  '(inhibit-startup-echo-area-message "")
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t)
+ '(org-agenda-files
+    '("/home/lmayall/Documents/School/T2Y4/SENG474/Notes/notes.org"))
  '(package-selected-packages
-   '(ein emacs-jupyter poly-R polymode lisp pyvenv lsp-pyright ccls racket-mode lsp-latex lsp-treemacs org-journal sml-mode markdown-mode company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
+    '(ein emacs-jupyter poly-R polymode lisp pyvenv lsp-pyright ccls racket-mode lsp-latex lsp-treemacs org-journal sml-mode markdown-mode company doom-themes counsel swiper lsp-mode company-lsp elpy lsp-ivy lsp-ui lsp-java dap-mode treemacs flycheck lua-mode smooth-scroll rainbow-delimiters ess sr-speedbar company-auctex ivy use-package auctex))
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
+
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka" :foundry "BE5N" :slant normal :weight semi-bold :height 150 :width normal)))))
+ '(default ((t (:family "Iosevka" :foundry "BE5N" :slant normal :weight semi-bold :height 150 :width normal))))
+ '(org-level-1 ((t (:height 1.5 :extend nil :inherit outline-1))))
+ '(org-level-2 ((t (:height 1.25 :extend nil :inherit outline-2))))
+ '(org-level-3 ((t (:height 1.1 :extend nil :inherit outline-3))))
+ '(org-macro ((t (:inherit org-latex-and-related)))))
+
+;;;; USER FUNCTIONS
 
 (defun toggle-flyspell-and-eval-buffer() "Toggle flyspell and if disabled, run 'eval-buffer'."
   (interactive)
   (if (bound-and-true-p flyspell-mode)
       (flyspell-mode 0)
     (flyspell-mode)
-    (flyspell-buffer))
+     (flyspell-buffer))
   )
 
 
+;;; GLOBAL DEFAULTS
 (set-default 'truncate-lines nil)
 
 ;; Use-package install and startup
@@ -82,7 +93,7 @@ There are two things you can do about this warning:
   :mode (("\\.org$" . org-mode))
   :config
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;truncation disabled
-  (define-key org-mode-map (kbd "C-c C-c") 'org-latex-export-to-pdf) ;
+  ;;(define-key org-mode-map (kbd "C-c C-c") 'org-latex-export-to-pdf) ;
 
 )
 
@@ -240,6 +251,7 @@ There are two things you can do about this warning:
   :config 
            (setq gc-cons-threshold 100000000)
            (setq read-process-output-max (* 1024 1024))
+           (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\].*?/474CommitML/clones/\\") ; Stop it indexing all the data for the 474CommitML
 
   )
 
@@ -314,7 +326,8 @@ There are two things you can do about this warning:
       initial-buffer-choice  nil)
 
 ;; STOP EMACS MAKING THE RANDOM BACKUP FILES. YES
-(setq backup-inhibited t)
+;; - I disabled this since I'm now giving emacs a specific backup dir    
+;; (setq backup-inhibited t)
 
 ;; keybinds for C
 (with-eval-after-load 'cc-mode
@@ -341,24 +354,22 @@ There are two things you can do about this warning:
 
 
 ;; Insert dual quatations!
-(global-set-key "\M-'" 'insert-quotations)
-(global-set-key "\M-\"" 'insert-quotes)
-(global-set-key (kbd "C-'") 'insert-backquote)
+(global-set-key (kbd "M-'") (lambda () (interactive) (insert-delimited-sexps "\'\'")))
+(global-set-key (kbd "M-\"") (lambda () (interactive) (insert-delimited-sexps "\"\"")))      
+(global-set-key (kbd "M-(") (lambda () (interactive) (insert-delimited-sexps "()")))
+(global-set-key (kbd "M-$") (lambda () (interactive) (insert-delimited-sexps "$$")))
 
-(defun insert-quotations (&optional arg)
-  "Enclose following ARG sexps in quotation marks.
-Leave point after open-paren."
-  (interactive "*P")
-  (insert-pair arg ?\' ?\'))
+(defun insert-delimited-sexps (delimiter &optional arg)
+  "Enclose following ARG sexps in DELIMITER.
+Leave point after open-delimiter."
+  (interactive "*P\nMEnter delimiter: ")
+  (let ((open-delimiter (aref delimiter 0))
+        (close-delimiter (aref delimiter (- (length delimiter) 1))))
+    (insert-pair arg open-delimiter close-delimiter)))    
 
-(defun insert-quotes (&optional arg)
-  "Enclose following ARG sexps in quotes.
-Leave point after open-quote."
-  (interactive "*P")
-  (insert-pair arg ?\" ?\"))
+;; DocView hook!
+(add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
-(defun insert-backquote (&optional arg)
-  "Enclose following ARG sexps in quotations with backquote.
-Leave point after open-quotation."
-  (interactive "*P")
-  (insert-pair arg ?\` ?\'))
+
+;; Emacs set a specific backup directory! 
+(setq backup-directory-alist '(("." . "~/.emacs-backups")))

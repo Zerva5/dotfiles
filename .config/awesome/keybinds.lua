@@ -67,15 +67,24 @@ keybinds.keyboard.global = gears.table.join(
       { description = "run keygrabber ", group = "test" }
    ),
 
+   -- awful.key({}, "Print", function()
+   --       local screen = awful.screen.focused()
+   --       local screenID = screen.index
+   --       naughty.notify({text="Screenshot taken"})
+   --       awful.spawn.with_shell("maim /home/lmayall/Documents/Photos/Screenshots/screenshot_$(date +%s).png")
+   -- end),
+
    awful.key({}, "Print", function()
          local screen = awful.screen.focused()
          local screenID = screen.index
 
-         -- naughty.notify({text=tostring(screenID)}) -- 
+         command = "maim --select /home/lmayall/Documents/Photos/Screenshots/screenshot_$(date +%s).png | echo /home/lmayall/Documents/Photos/Screenshots/screenshot_$(date +%s).png"
 
-         --awful.spawn.with_shell("sh /home/lmayall/dotfiles/Scripts/screenshot.sh " .. screenID)
-         awful.spawn.with_shell("deepin-screenshot")
-         
+         awful.spawn.easy_async_with_shell(command, function(out)
+                                              naughty.notify({title="Screenshot Taken", text=out, icon=out})
+                                              
+         end)
+
    end),
 
    awful.key({ config.modkey, "Shift"   }, "n",     function () awful.tag.incnmaster(-1, nil, true) end),
