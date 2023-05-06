@@ -161,6 +161,10 @@ There are two things you can do about this warning:
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
 
+(use-package jupyter
+  :ensure t
+  )
+
 
 (use-package sml-mode
   :ensure t)
