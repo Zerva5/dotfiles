@@ -22,5 +22,16 @@ Hello, these are my dotfiles for my Arch linux install as of Feb 4, 2020.
 * **DAC/AMP:** FiiO E10K
 * **Main Monitor:** BenQ EW3280U
 
+* **Laptop:** Lenovo Thinkpax L580
+
+
+# Arch Stuff I'll forget if I reinstall
+### Reflector
+Automatically update pacman mirrors!
+* Install `reflector` package
+* Edit `sudo vim /etc/xdg/reflector/reflector.conf` and add `--country Canada,'United States', ''`
+* Enable service `sudo systemctl enable reflector.timer`
+
+### 
 
     

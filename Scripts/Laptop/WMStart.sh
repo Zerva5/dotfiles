@@ -5,3 +5,4 @@
 # picom &
 nm-applet &
 lxqt-policykit-agent &
+blueman-applet &
