@@ -9,7 +9,7 @@ config.modkey = "Mod4"
 
 config.scaling = 1
 
-config.apps.terminal = "alacritty"
+config.apps.terminal = "kitty"
 
 config.colors = {
    "#a972cb",
