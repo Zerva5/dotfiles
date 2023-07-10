@@ -6,6 +6,11 @@ export ZSH="/home/lmayall/.oh-my-zsh"
 
 ## TENSORFLOW CUDA DIRECTORY
 export XLA_FLAGS=--xla_gpu_cuda_data_dir=/opt/cuda
+export PATH="/opt/cuda/bin:$PATH"
+export LD_LIBRARY_PATH="/opt/cuda/lib64:$LD_LIBRARY_PATH"
+export CUDA_HOME="/opt/cuda"
+
+
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -90,7 +95,8 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
-
+#!/
+#
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -102,17 +108,19 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias vim='nvim'
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/lmayall/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/usr/etc/profile.d/conda.sh" ]; then
-        . "/usr/etc/profile.d/conda.sh"
+    if [ -f "/home/lmayall/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/home/lmayall/miniforge3/etc/profile.d/conda.sh"
     else
-        export PATH="/usr/bin:$PATH"
+        export PATH="/home/lmayall/miniforge3/bin:$PATH"
     fi
 fi
 unset __conda_setup
