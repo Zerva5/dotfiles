@@ -1,15 +1,20 @@
-local default_lsp_map = function(client, bufnr)
+local default_lsp_map = function(_, bufnr)
 	local opts = { buffer = bufnr, noremap = true, silent = true }
 
 	-- List all symbols in document
-	--vim.keymap.set('n', '<leader>lp', vim.lsp.buf.hover, opts)
+	vim.keymap.set('n', '<leader>gh', vim.lsp.buf.hover, opts)
 	vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, opts)
-	vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, opts)
-	vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, opts)
-	--vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ls', vim.lsp.buf.document_symbol, opts)
 
-	--vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lD', vim.lsp.buf.declaration, opts)
-	--
+
+	vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, opts)
+
+	-- Rename reference
+	vim.keymap.set('n', '<leader>rr', vim.lsp.buf.rename, opts)
+
+	vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, opts)
+	--vim.keymap.set('n', '<leader>gD', ':lua vim.lsp.buf.declaration()<CR>', opts)
+	vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, opts)
+
 	vim.keymap.set('n', '<leader>fd', vim.lsp.buf.format, opts)
 end
 
@@ -54,6 +59,7 @@ lspconfig.lua_ls.setup { on_attach = default_lsp_map,
 }
 
 lspconfig.ccls.setup {
+	on_attach = default_lsp_map,
 	init_options = {
 		compilationDatabaseDirectory = "build",
 		index = {
